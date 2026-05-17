@@ -2,9 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "LokIzy | Gestion locative simple et moderne",
+  title: "LokIzy | Gestion locative, campagnes candidats et pilotage owner",
   description:
-    "LokIzy aide les proprietaires et petites agences a gerer leurs biens, baux, locataires, documents et loyers depuis une seule interface.",
+    "LokIzy aide les proprietaires et equipes a gerer leurs biens, candidats, visites, signatures, notifications et suivi locatif depuis une seule interface.",
 };
 
 export default function RootLayout({

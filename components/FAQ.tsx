@@ -1,23 +1,23 @@
 const faq = [
   {
-    question: "LokIzy remplace-t-il mes tableurs actuels ?",
+    question: "LokIzy couvre-t-il aussi la recherche de locataires ?",
     answer:
-      "Oui. L'objectif est de regrouper biens, locataires, baux, documents et suivi des loyers dans une interface plus fiable qu'un tableur partage.",
+      "Oui. L'app gere les campagnes candidats, la qualification des profils, la planification des visites et la conversion en locataire dans le meme flux.",
   },
   {
-    question: "Puis-je gerer plusieurs biens ?",
+    question: "Peut-on travailler a plusieurs dans le meme espace ?",
     answer:
-      "Oui. Les offres Pro et Agence sont concues pour les portefeuilles multi-biens avec une vision globale et un suivi par logement.",
+      "Oui. LokIzy introduit un espace organisation owner avec gestion des admins, des quotas et d'un portefeuille partage par equipe.",
   },
   {
-    question: "Les documents peuvent-ils etre exportes ?",
+    question: "Que devient la signature des documents ?",
     answer:
-      "Oui. Les baux, quittances, etats des lieux et inventaires sont penses pour etre conserves, transmis et archives facilement.",
+      "Les baux, inventaires et etats des lieux suivent un parcours de signature plus direct, avec preview, statuts et centralisation dans le dossier.",
   },
   {
-    question: "LokIzy est-il adapte aux petites agences ?",
+    question: "Y a-t-il un suivi des alertes et des actions ?",
     answer:
-      "Oui. L'offre Agence ajoute des usages d'equipe, des acces collaborateurs et un accompagnement pour structurer le portefeuille.",
+      "Oui. Notifications, rappels, evenements importants et journal d'activite permettent de suivre les priorites et les actions recentes du portefeuille.",
   },
 ];
 
@@ -30,7 +30,7 @@ export default function FAQ() {
             FAQ
           </p>
           <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
-            Les questions qui reviennent avant de se lancer.
+            Les questions qui reviennent avec la nouvelle version.
           </h2>
         </div>
 

@@ -1,23 +1,23 @@
 const steps = [
   {
-    title: "Creer le bien",
-    text: "Renseignez l'adresse, les surfaces, les pieces, les annexes et les documents utiles.",
+    title: "Structurer le portefeuille",
+    text: "Ajoutez les biens, l'organisation, les admins et les capacites de travail adaptees a votre plan.",
   },
   {
-    title: "Preparer le dossier",
-    text: "Ajoutez le locataire, les garants, les justificatifs et les conditions du bail.",
+    title: "Ouvrir une campagne",
+    text: "Lancez une recherche locataire par bien avec un objectif clair, un profil cible et un suivi centralise.",
   },
   {
-    title: "Generer les documents",
-    text: "LokIzy assemble bail, inventaire, etat des lieux et quittances avec les bonnes donnees.",
+    title: "Qualifier les profils",
+    text: "Analysez les candidats, planifiez les visites, faites evoluer les statuts et gardez les bons dossiers visibles.",
   },
   {
-    title: "Faire signer",
-    text: "Envoyez les documents au bon moment et gardez une trace claire des validations.",
+    title: "Signer sans friction",
+    text: "Generez les documents utiles puis ouvrez directement le bon parcours de signature pour le bail ou les annexes.",
   },
   {
-    title: "Piloter au quotidien",
-    text: "Suivez loyers, demandes, echeances et renouvellements depuis votre tableau de bord.",
+    title: "Piloter en continu",
+    text: "Suivez quotas, alertes, notifications, journal d'activite, loyers et renouvellements depuis une meme vue produit.",
   },
 ];
 
@@ -30,11 +30,12 @@ export default function Workflow() {
             Workflow
           </p>
           <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
-            Un parcours clair, du premier bien au suivi mensuel.
+            Un parcours clair, de la campagne au suivi locataire.
           </h2>
           <p className="text-lg leading-8 text-[#66736d]">
-            Chaque etape garde le contexte precedent. Vous saisissez moins,
-            vous controlez mieux, et vos dossiers restent propres.
+            Chaque etape conserve le contexte precedent. L'app relie
+            portefeuille, candidats, documents et actions de suivi au lieu de
+            les disperser.
           </p>
         </div>
 

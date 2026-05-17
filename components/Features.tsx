@@ -1,41 +1,47 @@
 import {
+  BellRing,
   Building2,
-  ClipboardCheck,
+  CalendarDays,
   FileSignature,
-  PackageCheck,
+  Megaphone,
   ReceiptText,
   UsersRound,
 } from "lucide-react";
 
 const features = [
   {
-    title: "Biens structures",
-    text: "Fiches completes, lots, pieces, annexes, documents et historique au meme endroit.",
+    title: "Portefeuille et organisation",
+    text: "Biens, quotas, organisation, owners et admins restent visibles depuis un espace owner structure.",
     icon: Building2,
   },
   {
-    title: "Baux prets a signer",
-    text: "Generez des contrats coherents a partir des donnees deja saisies.",
+    title: "Campagnes candidats",
+    text: "Ouvrez une campagne par bien, centralisez les profils, triez les dossiers et convertissez le bon candidat en locataire.",
+    icon: Megaphone,
+  },
+  {
+    title: "Visites planifiees",
+    text: "Ajoutez les rendez-vous, rattachez-les au bien et au candidat, puis gardez l'historique du suivi.",
+    icon: CalendarDays,
+  },
+  {
+    title: "Signatures et documents",
+    text: "Baux, inventaires et etats des lieux avancent avec un workflow de signature plus direct et plus lisible.",
     icon: FileSignature,
   },
   {
-    title: "Etats des lieux guides",
-    text: "Preparez l'entree et la sortie avec photos, commentaires et validation claire.",
-    icon: ClipboardCheck,
-  },
-  {
-    title: "Inventaires maitrises",
-    text: "Suivez meubles, equipements, cles et compteurs sans tableur fragile.",
-    icon: PackageCheck,
-  },
-  {
-    title: "Loyers et quittances",
-    text: "Visualisez les paiements, relancez les retards et editez les quittances.",
+    title: "Loyers et suivi finance",
+    text: "Gardez les quittances, les paiements, les relances et les points de vigilance dans le meme pilotage.",
     icon: ReceiptText,
   },
   {
-    title: "Relation locataire",
-    text: "Centralisez contacts, demandes, echanges et pieces justificatives.",
+    title: "Notifications et activite",
+    text: "Recevez les alertes utiles, activez le push et suivez chaque action importante dans un journal d'activite.",
+    icon: BellRing,
+  },
+  {
+    title: "Relation locataire continue",
+    text: "Contacts, documents, signatures, evenements et timeline locataire restent relies du debut a la sortie.",
     icon: UsersRound,
   },
 ];
@@ -49,12 +55,13 @@ export default function Features() {
             Fonctionnalites
           </p>
           <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
-            Tout ce qu&apos;il faut pour gerer une location serieusement.
+            Les modules qui collent aux usages reels de ton app.
           </h2>
 
           <p className="text-lg leading-8 text-[#66736d]">
-            LokIzy rassemble les taches repetitives et les moments sensibles
-            de la location dans une experience lisible, rapide et fiable.
+            LokIzy ne sert plus seulement a stocker des fiches. La plateforme
+            orchestre les decisions, les actions et les validations qui font
+            avancer un portefeuille locatif.
           </p>
         </div>
 

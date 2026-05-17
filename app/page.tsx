@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
+import Highlights from "../components/Highlights";
 import Features from "../components/Features";
 import Workflow from "../components/Workflow";
 import Pricing from "../components/Pricing";
@@ -12,6 +13,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <Highlights />
         <Features />
         <Workflow />
         <Pricing />

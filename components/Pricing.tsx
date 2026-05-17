@@ -1,38 +1,47 @@
+import Link from "next/link";
+import { SIGNUP_PATH } from "@/lib/app-config";
+
 const plans = [
   {
     name: "Free",
-    price: "0 EUR",
-    description: "Pour tester LokIzy et organiser un premier dossier.",
-    features: ["1 bien actif", "Documents centralises", "Suivi locataire de base"],
-    cta: "Commencer gratuitement",
+    summary: "Socle d'entree pour demarrer l'activite.",
+    features: [
+      "3 owners",
+      "5 admins",
+      "25 biens",
+      "100 candidats",
+      "50 locataires",
+      "1 Go de stockage",
+    ],
+    cta: "Decouvrir Free",
     highlighted: false,
   },
   {
     name: "Pro",
-    price: "5 EUR",
-    description: "Pour demarrer avec un ou deux biens.",
-    features: ["2 biens actifs", "Baux et quittances", "Documents centralises"],
-    cta: "Commencer",
+    summary: "Plan standard pour une exploitation locative active.",
+    features: [
+      "10 owners",
+      "20 admins",
+      "100 biens",
+      "500 candidats",
+      "250 locataires",
+      "10 Go de stockage",
+    ],
+    cta: "Voir le plan Pro",
     highlighted: true,
   },
   {
     name: "Business",
-    price: "29 EUR",
-    description: "Pour proprietaires multi-biens.",
+    summary: "Capacites etendues pour des organisations multi-equipes.",
     features: [
-      "15 biens actifs",
-      "Etats des lieux guides",
-      "Relances et suivi des loyers",
+      "25 owners",
+      "50 admins",
+      "250 biens",
+      "2 500 candidats",
+      "1 000 locataires",
+      "50 Go de stockage",
     ],
-    cta: "Commencer",
-    highlighted: false,
-  },
-  {
-    name: "Agence",
-    price: "Sur devis",
-    description: "Pour equipes et portefeuilles avances.",
-    features: ["Biens illimites", "Acces collaborateurs", "Accompagnement dedie"],
-    cta: "Nous contacter",
+    cta: "Explorer Business",
     highlighted: false,
   },
 ];
@@ -43,18 +52,18 @@ export default function Pricing() {
       <div className="section-container">
         <div className="mb-16 max-w-3xl">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
-            Tarifs
+            Plans
           </p>
           <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
-            Des offres lisibles, sans engagement complique.
+            Des capacites claires, alignees sur l'app.
           </h2>
           <p className="text-lg leading-8 text-[#66736d]">
-            Choisissez la formule adaptee a votre portefeuille. Vous pouvez
-            changer d&apos;offre quand votre activite grandit.
+            Les niveaux ci-dessous reprennent les plans structures dans
+            LokIzy: Free, Pro et Business, avec leurs quotas par organisation.
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-4">
+        <div className="grid gap-8 lg:grid-cols-3">
           {plans.map((plan) => (
             <div
               key={plan.name}
@@ -74,17 +83,13 @@ export default function Pricing() {
               </h3>
 
               <p className="mb-8 leading-7 text-[#66736d]">
-                {plan.description}
+                {plan.summary}
               </p>
 
-              <div className="mb-8 text-5xl font-bold text-[#101513]">
-                {plan.price}
-                {plan.price !== "Sur devis" && (
-                  <span className="text-base font-semibold text-[#66736d]">
-                    {" "}
-                    / mois
-                  </span>
-                )}
+              <div className="mb-8 rounded-2xl bg-[#f7faf8] px-5 py-4">
+                <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#0f6f34]">
+                  Capacites incluses
+                </p>
               </div>
 
               <ul className="mb-8 space-y-3">
@@ -96,12 +101,12 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <a
-                href={plan.price === "Sur devis" ? "mailto:contact@lokizy.ch" : "#faq"}
+              <Link
+                href={SIGNUP_PATH}
                 className="inline-flex w-full justify-center rounded-full bg-[#0f6f34] py-4 font-semibold text-white transition hover:bg-[#0b4f25]"
               >
                 {plan.cta}
-              </a>
+              </Link>
             </div>
           ))}
         </div>
