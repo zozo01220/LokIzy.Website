@@ -9,17 +9,11 @@ import {
 } from "@/lib/app-config";
 
 type SignupFormValues = {
-  organizationName: string;
-  legalName: string;
   contactFirstName: string;
   contactLastName: string;
   ownerEmail: string;
-  contactPhone: string;
-  companyName: string;
   password: string;
   confirmPassword: string;
-  notes: string;
-  acceptTerms: boolean;
 };
 
 type SignupErrors = Partial<Record<keyof SignupFormValues, string>>;
@@ -31,17 +25,11 @@ type SubmissionState =
   | { type: "error"; message: string };
 
 const initialValues: SignupFormValues = {
-  organizationName: "",
-  legalName: "",
   contactFirstName: "",
   contactLastName: "",
   ownerEmail: "",
-  contactPhone: "",
-  companyName: "",
   password: "",
   confirmPassword: "",
-  notes: "",
-  acceptTerms: false,
 };
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -64,10 +52,6 @@ export default function SignupForm() {
 
   function validateForm(input: SignupFormValues) {
     const nextErrors: SignupErrors = {};
-
-    if (!input.organizationName.trim()) {
-      nextErrors.organizationName = "Renseigne le nom de l'organisation.";
-    }
 
     if (!input.contactFirstName.trim()) {
       nextErrors.contactFirstName = "Le prenom du contact est requis.";
@@ -97,32 +81,28 @@ export default function SignupForm() {
         "Le mot de passe et sa confirmation ne correspondent pas.";
     }
 
-    if (!input.acceptTerms) {
-      nextErrors.acceptTerms =
-        "Tu dois confirmer l'envoi de la demande d'inscription.";
-    }
-
     return nextErrors;
   }
 
   function buildPayload(input: SignupFormValues) {
     const ownerDisplayName = `${input.contactFirstName.trim()} ${input.contactLastName.trim()}`.trim();
     const contactEmail = input.ownerEmail.trim();
+    const organizationName = ownerDisplayName || contactEmail;
 
     return {
       plan: "Free",
-      organizationName: input.organizationName.trim(),
-      legalName: input.legalName.trim() || input.organizationName.trim(),
+      organizationName,
+      legalName: organizationName,
       contactFirstName: input.contactFirstName.trim(),
       contactLastName: input.contactLastName.trim(),
       contactEmail,
-      contactPhone: input.contactPhone.trim() || null,
+      contactPhone: null,
       billingEmail: contactEmail,
       ownerDisplayName,
       ownerEmail: contactEmail,
       ownerPassword: input.password,
-      companyName: input.companyName.trim() || null,
-      notes: input.notes.trim() || null,
+      companyName: null,
+      notes: null,
     };
   }
 
@@ -194,7 +174,7 @@ export default function SignupForm() {
   }
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+    <div className="mx-auto max-w-3xl">
       <div className="glass-card p-8 sm:p-10">
         <div className="mb-8">
           <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
@@ -203,11 +183,6 @@ export default function SignupForm() {
           <h1 className="text-4xl font-bold text-[#101513] sm:text-5xl">
             Cree ton compte LokIzy.
           </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-[#66736d]">
-            Cette page permet de creer une organisation en plan Free et le
-            compte owner principal associe. Elle peut repasser en mode preview
-            si tu desactives l'endpoint via l'environnement.
-          </p>
         </div>
 
         <div className="mb-8 rounded-3xl border border-[#16a34a]/15 bg-[#e8f7ee] p-5 text-[#0f6f34]">
@@ -236,22 +211,6 @@ export default function SignupForm() {
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
           <div className="grid gap-5 sm:grid-cols-2">
             <FormField
-              id="organizationName"
-              label="Nom de l'organisation"
-              value={values.organizationName}
-              error={errors.organizationName}
-              onChange={(value) => updateField("organizationName", value)}
-              placeholder="Ex. Horizon Gestion"
-            />
-            <FormField
-              id="legalName"
-              label="Nom legal"
-              value={values.legalName}
-              error={errors.legalName}
-              onChange={(value) => updateField("legalName", value)}
-              placeholder="Optionnel"
-            />
-            <FormField
               id="contactFirstName"
               label="Prenom"
               value={values.contactFirstName}
@@ -275,22 +234,6 @@ export default function SignupForm() {
               error={errors.ownerEmail}
               onChange={(value) => updateField("ownerEmail", value)}
               placeholder="nom@entreprise.com"
-            />
-            <FormField
-              id="contactPhone"
-              label="Telephone"
-              value={values.contactPhone}
-              error={errors.contactPhone}
-              onChange={(value) => updateField("contactPhone", value)}
-              placeholder="Optionnel"
-            />
-            <FormField
-              id="companyName"
-              label="Societe"
-              value={values.companyName}
-              error={errors.companyName}
-              onChange={(value) => updateField("companyName", value)}
-              placeholder="Optionnel"
             />
             <div className="space-y-2">
               <label
@@ -323,43 +266,6 @@ export default function SignupForm() {
             />
           </div>
 
-          <div className="space-y-2">
-            <label
-              htmlFor="notes"
-              className="text-sm font-semibold text-[#101513]"
-            >
-              Notes pour l'onboarding
-            </label>
-            <textarea
-              id="notes"
-              value={values.notes}
-              onChange={(event) => updateField("notes", event.target.value)}
-              rows={4}
-              className="w-full rounded-2xl border border-[#d9e5de] bg-white px-4 py-3 text-[#101513] outline-none transition focus:border-[#16a34a] focus:ring-4 focus:ring-[#16a34a]/10"
-              placeholder="Optionnel"
-            />
-          </div>
-
-          <label className="flex items-start gap-3 rounded-2xl border border-[#e4ebe7] bg-[#f7faf8] p-4">
-            <input
-              type="checkbox"
-              checked={values.acceptTerms}
-              onChange={(event) =>
-                updateField("acceptTerms", event.target.checked)
-              }
-              className="mt-1 h-4 w-4 rounded border-[#c4d4ca] text-[#0f6f34] focus:ring-[#16a34a]"
-            />
-            <span className="text-sm leading-6 text-[#66736d]">
-              Je confirme vouloir envoyer une demande de creation de compte
-              owner en plan Free.
-            </span>
-          </label>
-          {errors.acceptTerms ? (
-            <p className="text-sm font-medium text-[#b42318]">
-              {errors.acceptTerms}
-            </p>
-          ) : null}
-
           <div className="flex flex-col gap-4 sm:flex-row">
             <button
               type="submit"
@@ -379,92 +285,46 @@ export default function SignupForm() {
               J'ai deja un compte
             </Link>
           </div>
+
+          {submissionState.type === "pending_preview" ? (
+            <article className="rounded-3xl border border-dashed border-[#16a34a]/25 p-6">
+              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
+                Preview de requete
+              </p>
+              <pre className="overflow-x-auto rounded-2xl bg-[#101513] p-5 text-sm leading-6 text-[#e8f7ee]">
+                {JSON.stringify(submissionState.payload, null, 2)}
+              </pre>
+            </article>
+          ) : null}
+
+          {submissionState.type === "success" ? (
+            <article className="rounded-3xl border border-[#16a34a]/20 bg-[#e8f7ee] p-6 text-[#0f6f34]">
+              <p className="text-sm font-bold uppercase tracking-[0.18em]">
+                Inscription envoyee
+              </p>
+              <p className="mt-3 text-base leading-7">
+                {submissionState.message}
+              </p>
+              <a
+                href={submissionState.loginUrl}
+                className="mt-5 inline-flex rounded-full bg-[#0f6f34] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0b4f25]"
+              >
+                Aller a la connexion
+              </a>
+            </article>
+          ) : null}
+
+          {submissionState.type === "error" ? (
+            <article className="rounded-3xl border border-[#f04438]/20 bg-[#fef3f2] p-6 text-[#b42318]">
+              <p className="text-sm font-bold uppercase tracking-[0.18em]">
+                Erreur d'inscription
+              </p>
+              <p className="mt-3 text-base leading-7">
+                {submissionState.message}
+              </p>
+            </article>
+          ) : null}
         </form>
-      </div>
-
-      <div className="space-y-6">
-        <article className="glass-card p-8">
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
-            Ce que tu prepares
-          </p>
-          <h2 className="text-3xl font-bold text-[#101513]">
-            Un onboarding deja branche sur ton endpoint public.
-          </h2>
-          <ul className="mt-6 space-y-4 text-[#66736d]">
-            <li className="flex gap-3">
-              <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#16a34a]" />
-              Creation d'une organisation en plan `Free`.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#16a34a]" />
-              Creation du compte owner principal rattache a cette organisation.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#16a34a]" />
-              Fallback preview encore disponible si tu remets le mode `pending`.
-            </li>
-          </ul>
-        </article>
-
-        <article className="glass-card p-8">
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
-            Plan Free
-          </p>
-          <div className="grid gap-3 text-sm text-[#66736d]">
-            {[
-              "3 owners",
-              "5 admins",
-              "25 biens",
-              "100 candidats",
-              "50 locataires",
-              "1 Go de stockage",
-            ].map((item) => (
-              <div key={item} className="flex gap-3">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#16a34a]" />
-                {item}
-              </div>
-            ))}
-          </div>
-        </article>
-
-        {submissionState.type === "pending_preview" ? (
-          <article className="glass-card border border-dashed border-[#16a34a]/25 p-8">
-            <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
-              Preview de requete
-            </p>
-            <p className="mb-4 leading-7 text-[#66736d]">
-              L'endpoint n'est pas encore connecte. Voici la charge utile qui
-              sera envoyee des que le backend sera disponible.
-            </p>
-            <pre className="overflow-x-auto rounded-2xl bg-[#101513] p-5 text-sm leading-6 text-[#e8f7ee]">
-              {JSON.stringify(submissionState.payload, null, 2)}
-            </pre>
-          </article>
-        ) : null}
-
-        {submissionState.type === "success" ? (
-          <article className="rounded-3xl border border-[#16a34a]/20 bg-[#e8f7ee] p-8 text-[#0f6f34]">
-            <p className="text-sm font-bold uppercase tracking-[0.18em]">
-              Inscription envoyee
-            </p>
-            <p className="mt-3 text-base leading-7">{submissionState.message}</p>
-            <a
-              href={submissionState.loginUrl}
-              className="mt-5 inline-flex rounded-full bg-[#0f6f34] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0b4f25]"
-            >
-              Aller a la connexion
-            </a>
-          </article>
-        ) : null}
-
-        {submissionState.type === "error" ? (
-          <article className="rounded-3xl border border-[#f04438]/20 bg-[#fef3f2] p-8 text-[#b42318]">
-            <p className="text-sm font-bold uppercase tracking-[0.18em]">
-              Erreur d'inscription
-            </p>
-            <p className="mt-3 text-base leading-7">{submissionState.message}</p>
-          </article>
-        ) : null}
       </div>
     </div>
   );
