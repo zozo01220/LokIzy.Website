@@ -19,6 +19,11 @@ const faq = [
     answer:
       "Oui. Ils peuvent consulter leurs paiements, leurs quittances, leurs documents, ouvrir des incidents et suivre les échanges depuis une interface simple.",
   },
+  {
+    question: "Les candidats ont-ils aussi leur espace ?",
+    answer:
+      "Les candidats sont suivis dans un espace de gestion dédié côté propriétaire ou admin, avec candidatures centralisées, scoring, campagnes et progression jusqu'à la conversion en locataire.",
+  },
 ];
 
 export default function FAQ() {

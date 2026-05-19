@@ -133,37 +133,6 @@ const featureGroups: FeatureGroup[] = [
       },
     ],
   },
-  {
-    title: "Ce qui change vraiment au quotidien",
-    intro:
-      "Des choix produit concrets qui font gagner du temps, évitent les oublis et rendent la trésorerie plus lisible.",
-    cards: [
-      {
-        kpi: "Contrat",
-        title: "N'affichez pas un faux impayé trop tôt",
-        description:
-          "La règle PaymentDay respecte la vraie date contractuelle avant de basculer un loyer en impayé.",
-      },
-      {
-        kpi: "Trésorerie",
-        title: "Distinguez l'argent encaissé de l'argent attendu",
-        description:
-          "Une lecture plus réaliste pour piloter sereinement les entrées d'argent.",
-      },
-      {
-        kpi: "Tout centralisé",
-        title: "Réduisez les échanges dispersés",
-        description:
-          "Documents, loyers et incidents sont regroupés au même endroit au lieu d'être perdus entre emails et messages.",
-      },
-      {
-        kpi: "Moins d'oubli",
-        title: "Fiabilisez votre gestion sans vous surcharger",
-        description:
-          "Automatisation, historique et suivi opérationnel limitent les erreurs et les angles morts.",
-      },
-    ],
-  },
 ];
 
 export default function Features() {
