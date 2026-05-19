@@ -26,7 +26,7 @@ export default function Workflow() {
     <section id="workflow" className="bg-white py-28">
       <div className="section-container">
         <div className="mb-16 max-w-3xl">
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
+          <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#4f6455]">
             Comment ça marche
           </p>
           <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
@@ -45,7 +45,7 @@ export default function Workflow() {
               key={step.title}
               className="flex gap-8 border-l border-[#e4ebe7] pb-14 pl-10 last:pb-0"
             >
-              <div className="-ml-[57px] flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#16a34a] text-sm font-bold text-white ring-8 ring-white">
+              <div className="-ml-[57px] flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--sage-accent)] text-sm font-bold text-white ring-8 ring-white">
                 {index + 1}
               </div>
 

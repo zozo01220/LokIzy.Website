@@ -12,7 +12,7 @@ export const APP_URL =
     : "https://locativeapp.azurewebsites.net";
 
 export const LOGIN_URL = `${APP_URL}/Account/Login`;
-export const SIGNUP_PATH = "/inscription";
+export const SURVEY_PATH = "/survey";
 
 export const REGISTRATION_ENDPOINT =
   envRegistrationEndpoint && envRegistrationEndpoint.length > 0

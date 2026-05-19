@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SIGNUP_PATH } from "@/lib/app-config";
+import { SURVEY_PATH } from "@/lib/app-config";
 
 const plans = [
   {
@@ -102,7 +102,7 @@ export default function Pricing() {
               </ul>
 
               <Link
-                href={SIGNUP_PATH}
+                href={SURVEY_PATH}
                 className="inline-flex w-full justify-center rounded-full bg-[#0f6f34] py-4 font-semibold text-white transition hover:bg-[#0b4f25]"
               >
                 {plan.cta}

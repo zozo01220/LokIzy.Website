@@ -148,7 +148,7 @@ export default function SurveyForm() {
     <div className="mx-auto max-w-4xl">
       <div className="glass-card p-8 sm:p-10">
         <div className="mb-8">
-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
+          <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-[#4f6455]">
             Sondage produit
           </p>
           <h1 className="text-4xl font-bold text-[#101513] sm:text-5xl">
@@ -156,31 +156,8 @@ export default function SurveyForm() {
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-[#66736d]">
             Le produit n&apos;est pas encore en phase de vente publique. Ce
-            formulaire nous aide à mieux comprendre les besoins prioritaires et
-            à préparer le futur branchement de la collecte.
-          </p>
-        </div>
-
-        <div className="mb-8 rounded-3xl border border-[#16a34a]/15 bg-[#e8f7ee] p-5 text-[#0f6f34]">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-sm font-bold uppercase tracking-[0.14em]">
-                Statut du formulaire
-              </p>
-              <p className="mt-1 text-base font-semibold">
-                {SURVEY_MODE === "live"
-                  ? "Endpoint connecté"
-                  : "Sondage prêt, en attente du branchement base de données"}
-              </p>
-            </div>
-            <span className="inline-flex w-fit rounded-full bg-white px-4 py-2 text-sm font-bold text-[#0f6f34]">
-              {SURVEY_MODE === "live" ? "Live" : "Preview"}
-            </span>
-          </div>
-          <p className="mt-4 text-sm leading-6">
-            {SURVEY_MODE === "live"
-              ? "Le formulaire envoie maintenant une requête réelle vers l'endpoint public de sondage."
-              : "Le bouton ne soumet rien pour l'instant. Il prépare simplement la structure qui sera reliée plus tard à la DB ou à un endpoint."}
+            formulaire nous aide à mieux comprendre les besoins prioritaires et à
+            préparer le futur branchement de la collecte.
           </p>
         </div>
 
@@ -205,6 +182,7 @@ export default function SurveyForm() {
               onChange={(value) => updateField("email", value)}
               placeholder="nom@entreprise.com"
             />
+
             <div className="space-y-2">
               <FieldLabel htmlFor="profile" required>
                 Profil
@@ -216,7 +194,7 @@ export default function SurveyForm() {
                 className={`h-14 w-full rounded-2xl border bg-white px-4 text-[#101513] outline-none transition focus:ring-4 ${
                   errors.profile
                     ? "border-[#f04438] focus:border-[#f04438] focus:ring-[#f04438]/10"
-                    : "border-[#d9e5de] focus:border-[#16a34a] focus:ring-[#16a34a]/10"
+                    : "border-[#d9e5de] focus:border-[var(--sage-accent)] focus:ring-[var(--sage-accent)]/10"
                 }`}
               >
                 <option value="">Sélectionner un profil</option>
@@ -253,7 +231,7 @@ export default function SurveyForm() {
               label="3. Si un logiciel vous faisait gagner 5h/mois, combien seriez-vous prêt à payer ?"
               value={values.surveyPrice}
               onChange={(value) => updateField("surveyPrice", value)}
-              placeholder="Exemple : 15 EUR/mois, 29 EUR/mois, 49 EUR/mois..."
+              placeholder="Exemple : 5 EUR/mois, 10 EUR/mois, 15 EUR/mois..."
               className="sm:col-span-2"
             />
 
@@ -267,7 +245,9 @@ export default function SurveyForm() {
                     updateField("notifyOnLaunch", !values.notifyOnLaunch)
                   }
                   className={`relative inline-flex h-8 w-14 shrink-0 items-center rounded-full transition ${
-                    values.notifyOnLaunch ? "bg-[#16a34a]" : "bg-[#cfd9d3]"
+                    values.notifyOnLaunch
+                      ? "bg-[var(--sage-accent)]"
+                      : "bg-[#cfd9d3]"
                   }`}
                 >
                   <span
@@ -284,7 +264,8 @@ export default function SurveyForm() {
                     Être informé de la sortie du produit
                   </p>
                   <p className="mt-1 text-sm text-[#66736d]">
-                    Activé pour recevoir l'information quand Lok Izy sera disponible.
+                    Activé pour recevoir l&apos;information quand Lok Izy sera
+                    disponible.
                   </p>
                 </div>
               </div>
@@ -295,21 +276,21 @@ export default function SurveyForm() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex h-14 items-center justify-center rounded-full bg-[#0f6f34] px-7 text-base font-semibold text-white shadow-lg shadow-[#16a34a]/20 transition hover:bg-[#0b4f25] disabled:cursor-not-allowed disabled:opacity-70"
+              className="inline-flex h-14 items-center justify-center rounded-full bg-[var(--sage-accent)] px-7 text-base font-semibold text-white shadow-lg shadow-[rgba(127,190,141,0.24)] transition hover:bg-[var(--sage-accent-dark)] disabled:cursor-not-allowed disabled:opacity-70"
             >
               {isSubmitting ? "Enregistrement..." : "Enregistrer"}
             </button>
             <Link
               href={CANCEL_URL}
-              className="inline-flex h-14 items-center justify-center rounded-full border border-[#d9e5de] bg-white px-7 text-base font-semibold text-[#0f6f34] transition hover:border-[#0f6f34] hover:bg-[#e8f7ee]"
+              className="inline-flex h-14 items-center justify-center rounded-full border border-[#d9e5de] bg-white px-7 text-base font-semibold text-[#4f6455] transition hover:border-[#4f6455] hover:bg-[#edf1ee]"
             >
               Abandonner
             </Link>
           </div>
 
           {submissionState.type === "preview" ? (
-            <article className="rounded-3xl border border-dashed border-[#16a34a]/25 p-6">
-              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
+            <article className="rounded-3xl border border-dashed border-[#6f8674]/25 p-6">
+              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#4f6455]">
                 Preview du futur payload
               </p>
               <p className="mb-4 text-sm leading-6 text-[#66736d]">
@@ -324,7 +305,7 @@ export default function SurveyForm() {
           ) : null}
 
           {submissionState.type === "success" ? (
-            <article className="rounded-3xl border border-[#16a34a]/20 bg-[#e8f7ee] p-6 text-[#0f6f34]">
+            <article className="rounded-3xl border border-[#6f8674]/20 bg-[#edf1ee] p-6 text-[#4f6455]">
               <p className="text-sm font-bold uppercase tracking-[0.18em]">
                 Sondage enregistré
               </p>
@@ -337,7 +318,7 @@ export default function SurveyForm() {
           {submissionState.type === "error" ? (
             <article className="rounded-3xl border border-[#f04438]/20 bg-[#fef3f2] p-6 text-[#b42318]">
               <p className="text-sm font-bold uppercase tracking-[0.18em]">
-                Erreur d'enregistrement
+                Erreur d&apos;enregistrement
               </p>
               <p className="mt-3 text-base leading-7">
                 {submissionState.message}
@@ -389,7 +370,7 @@ function FormField({
         className={`h-14 w-full rounded-2xl border bg-white px-4 text-[#101513] outline-none transition focus:ring-4 ${
           error
             ? "border-[#f04438] focus:border-[#f04438] focus:ring-[#f04438]/10"
-            : "border-[#d9e5de] focus:border-[#16a34a] focus:ring-[#16a34a]/10"
+            : "border-[#d9e5de] focus:border-[var(--sage-accent)] focus:ring-[var(--sage-accent)]/10"
         }`}
       />
       {error ? (
@@ -416,7 +397,7 @@ function TextareaField({
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
         rows={5}
-        className="w-full rounded-2xl border border-[#d9e5de] bg-white px-4 py-4 text-[#101513] outline-none transition focus:border-[#16a34a] focus:ring-4 focus:ring-[#16a34a]/10"
+        className="w-full rounded-2xl border border-[#d9e5de] bg-white px-4 py-4 text-[#101513] outline-none transition focus:border-[var(--sage-accent)] focus:ring-4 focus:ring-[var(--sage-accent)]/10"
       />
     </div>
   );

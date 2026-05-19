@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "./Logo";
-import { LOGIN_URL, SIGNUP_PATH } from "@/lib/app-config";
+import { LOGIN_URL, SURVEY_PATH } from "@/lib/app-config";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement | null>(null);
 
   const links = [
     { label: "Pourquoi Lok Izy", href: "/#fonctionnalites" },
@@ -15,10 +16,56 @@ export default function Navbar() {
     { label: "FAQ", href: "/#faq" },
   ];
 
+  useEffect(() => {
+    function handlePointerDown(event: MouseEvent | TouchEvent) {
+      if (!open || !headerRef.current) {
+        return;
+      }
+
+      const target = event.target;
+      if (target instanceof Node && !headerRef.current.contains(target)) {
+        setOpen(false);
+      }
+    }
+
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [open]);
+
+  function handleLogoClick(event: React.MouseEvent<HTMLAnchorElement>) {
+    setOpen(false);
+
+    if (window.location.pathname === "/") {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-[#e4ebe7] bg-white/90 backdrop-blur-xl">
+    <header
+      ref={headerRef}
+      className="fixed top-0 z-50 w-full border-b border-[#e4ebe7] bg-white/90 backdrop-blur-xl"
+    >
       <div className="section-container flex h-20 items-center justify-between">
-        <Link href="/" className="flex items-center" aria-label="Lok Izy">
+        <Link
+          href="/"
+          onClick={handleLogoClick}
+          className="flex items-center"
+          aria-label="Lok Izy"
+        >
           <Logo />
         </Link>
 
@@ -27,7 +74,7 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-semibold text-[#66736d] transition hover:text-[#0f6f34]"
+              className="text-sm font-semibold text-[#66736d] transition hover:text-[#4f6455]"
             >
               {link.label}
             </Link>
@@ -37,13 +84,13 @@ export default function Navbar() {
         <div className="hidden items-center gap-3 lg:flex">
           <a
             href={LOGIN_URL}
-            className="rounded-full border border-[#0f6f34]/15 bg-white px-5 py-3 text-sm font-semibold text-[#0f6f34] transition hover:border-[#0f6f34] hover:bg-[#e8f7ee]"
+            className="rounded-full border border-[#4f6455]/15 bg-white px-5 py-3 text-sm font-semibold text-[#4f6455] transition hover:border-[#4f6455] hover:bg-[#edf1ee]"
           >
             Connexion
           </a>
           <Link
-            href={SIGNUP_PATH}
-            className="rounded-full bg-[#0f6f34] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0b4f25]"
+            href={SURVEY_PATH}
+            className="rounded-full bg-[linear-gradient(135deg,var(--sage-accent-dark),var(--sage-accent))] px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_34px_rgba(127,190,141,0.3)] ring-1 ring-[var(--sage-accent)]/20 transition hover:-translate-y-1 hover:shadow-[0_22px_40px_rgba(127,190,141,0.38)]"
           >
             Participer au sondage
           </Link>
@@ -51,7 +98,7 @@ export default function Navbar() {
 
         <button
           onClick={() => setOpen(!open)}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#0f6f34] text-white transition hover:bg-[#0b4f25] lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--sage-accent-dark)] text-white transition hover:bg-[var(--sage-dark)] lg:hidden"
           aria-label="Ouvrir le menu"
         >
           {open ? <X /> : <Menu />}
@@ -75,9 +122,9 @@ export default function Navbar() {
               Connexion
             </a>
             <Link
-              href={SIGNUP_PATH}
+              href={SURVEY_PATH}
               onClick={() => setOpen(false)}
-              className="inline-flex justify-center rounded-full bg-[#0f6f34] px-5 py-3 font-semibold text-white transition hover:bg-[#0b4f25]"
+              className="inline-flex justify-center rounded-full bg-[linear-gradient(135deg,var(--sage-accent-dark),var(--sage-accent))] px-5 py-3 font-semibold text-white shadow-[0_16px_34px_rgba(127,190,141,0.28)] transition hover:-translate-y-1"
             >
               Participer au sondage
             </Link>

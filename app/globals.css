@@ -8,22 +8,54 @@ html {
 }
 
 :root {
-  --sage: #16a34a;
-  --sage-dark: #0f6f34;
-  --sage-deep: #0b4f25;
-  --sage-light: #e8f7ee;
+  --sage: #6f8674;
+  --sage-dark: #4f6455;
+  --sage-deep: #3f5144;
+  --sage-light: #edf1ee;
+  --sage-accent: #7fbe8d;
+  --sage-accent-dark: #66a874;
   --ink: #101513;
   --muted: #66736d;
-  --background: #f7faf8;
+  --background: #f4f8f3;
   --paper: #ffffff;
   --border: #e4ebe7;
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at 8% 14%, rgba(111, 134, 116, 0.16), transparent 22%),
+    radial-gradient(circle at 88% 10%, rgba(79, 100, 85, 0.12), transparent 18%),
+    radial-gradient(circle at 72% 48%, rgba(214, 224, 216, 0.28), transparent 22%),
+    radial-gradient(circle at 18% 72%, rgba(227, 234, 228, 0.68), transparent 24%),
+    linear-gradient(135deg, #f8fcf8 0%, #eef7f0 38%, #f8fbf7 100%);
   color: var(--ink);
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  background:
+    linear-gradient(rgba(79, 100, 85, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 100, 85, 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  content: "";
+  inset: 0;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.75), transparent 96%);
+  pointer-events: none;
+  position: fixed;
+  z-index: -2;
+}
+
+body::after {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.72), transparent 52%),
+    radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.36), transparent 38%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
 }
 
 .section-container {
@@ -42,16 +74,93 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #0f6f34, #16a34a);
+  background: linear-gradient(90deg, var(--sage-dark), var(--sage-accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .soft-grid {
   background-image:
-    linear-gradient(rgba(15, 111, 52, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 111, 52, 0.055) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(79, 100, 85, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 100, 85, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.86), transparent 40%);
+  background-size: 52px 52px, 52px 52px, auto;
+}
+
+.hero-aurora {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(111, 134, 116, 0.22), transparent 28%),
+    radial-gradient(circle at 82% 16%, rgba(79, 100, 85, 0.14), transparent 24%),
+    radial-gradient(circle at 65% 58%, rgba(214, 224, 216, 0.32), transparent 28%);
+}
+
+.hero-structure {
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0) 34%),
+    linear-gradient(90deg, rgba(79, 100, 85, 0.06) 1px, transparent 1px),
+    linear-gradient(rgba(79, 100, 85, 0.06) 1px, transparent 1px);
+  background-position: 0 0, center center, center center;
+  background-size: auto, 88px 88px, 88px 88px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.96), rgba(0, 0, 0, 0.72) 68%, transparent 100%);
+}
+
+.hero-structure::before {
+  background:
+    linear-gradient(135deg, rgba(111, 134, 116, 0.12), transparent 56%),
+    radial-gradient(circle at 22% 26%, rgba(255, 255, 255, 0.8), transparent 18%);
+  clip-path: polygon(0 0, 58% 0, 38% 100%, 0 100%);
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.hero-structure::after {
+  background:
+    linear-gradient(225deg, rgba(79, 100, 85, 0.10), transparent 52%),
+    radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.66), transparent 16%);
+  clip-path: polygon(66% 0, 100% 0, 100% 100%, 44% 100%);
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.hero-fade-up {
+  animation: hero-fade-up 0.8s ease-out both;
+}
+
+.hero-fade-up-delay {
+  animation: hero-fade-up 1s ease-out 0.12s both;
+}
+
+.hero-float {
+  animation: hero-float 6s ease-in-out infinite;
+}
+
+.hero-float-delay {
+  animation: hero-float 7s ease-in-out 0.8s infinite;
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .app-logo {
@@ -70,9 +179,9 @@ body {
 }
 
 .app-logo-roof-line {
-  background: linear-gradient(90deg, #0f6f34, #16a34a);
+  background: linear-gradient(90deg, var(--sage-dark), var(--sage));
   border-radius: 999px;
-  box-shadow: 0 8px 22px rgba(22, 163, 74, 0.22);
+  box-shadow: 0 8px 22px rgba(111, 134, 116, 0.22);
   display: block;
   height: 4px;
   position: absolute;
@@ -93,7 +202,7 @@ body {
 }
 
 .app-logo-name {
-  color: #0f6f34;
+  color: var(--sage-dark);
   font-size: 24px;
   font-weight: 900;
   letter-spacing: 0;

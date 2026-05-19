@@ -4,12 +4,12 @@ import Navbar from "@/components/Navbar";
 import SurveyForm from "@/components/SurveyForm";
 
 export const metadata: Metadata = {
-  title: "Participer au sondage | Lok Izy",
+  title: "Participer au survey | Lok Izy",
   description:
-    "Partagez vos besoins et participez au sondage produit Lok Izy.",
+    "Partagez vos besoins et participez au survey produit Lok Izy.",
 };
 
-export default function SignupPage() {
+export default function SurveyPage() {
   return (
     <div className="min-h-screen">
       <Navbar />

@@ -140,7 +140,7 @@ export default function Features() {
     <section id="fonctionnalites" className="bg-white py-28">
       <div className="section-container">
         <div className="mb-16 max-w-4xl">
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
+          <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#4f6455]">
             Pourquoi Lok Izy
           </p>
           <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
@@ -171,10 +171,10 @@ export default function Features() {
                     className="group rounded-[28px] border border-[#dfe9e3] bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(244,250,246,0.98))] p-6 shadow-[0_14px_40px_rgba(16,21,19,0.06)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_24px_70px_rgba(16,21,19,0.14)]"
                   >
                     <div className="mb-6 flex items-center justify-between gap-4">
-                      <span className="inline-flex rounded-full bg-[#e8f7ee] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
+                      <span className="inline-flex rounded-full bg-[#edf1ee] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#4f6455]">
                         {card.kpi}
                       </span>
-                      <span className="h-3 w-3 rounded-full bg-[#16a34a] transition duration-300 group-hover:scale-125" />
+                      <span className="h-3 w-3 rounded-full bg-[var(--sage-accent)] transition duration-300 group-hover:scale-125" />
                     </div>
 
                     <h4 className="text-2xl font-extrabold leading-tight text-[#101513] sm:text-[1.75rem]">
