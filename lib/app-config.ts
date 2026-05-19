@@ -3,6 +3,8 @@ const envRegistrationEndpoint =
   process.env.NEXT_PUBLIC_REGISTRATION_ENDPOINT?.trim();
 const envRegistrationMode =
   process.env.NEXT_PUBLIC_REGISTRATION_MODE?.trim().toLowerCase();
+const envSurveyEndpoint = process.env.NEXT_PUBLIC_SURVEY_ENDPOINT?.trim();
+const envSurveyMode = process.env.NEXT_PUBLIC_SURVEY_MODE?.trim().toLowerCase();
 
 export const APP_URL =
   envAppUrl && envAppUrl.length > 0
@@ -21,5 +23,17 @@ export const REGISTRATION_MODE =
   envRegistrationMode === "pending"
     ? "pending"
     : REGISTRATION_ENDPOINT
+      ? "live"
+      : "pending";
+
+export const SURVEY_ENDPOINT =
+  envSurveyEndpoint && envSurveyEndpoint.length > 0
+    ? envSurveyEndpoint
+    : `${APP_URL}/api/public/product-survey`;
+
+export const SURVEY_MODE =
+  envSurveyMode === "pending"
+    ? "pending"
+    : SURVEY_ENDPOINT
       ? "live"
       : "pending";

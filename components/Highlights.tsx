@@ -27,7 +27,7 @@ export default function Highlights() {
             Nouveautes produit
           </p>
           <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
-            Le site parle maintenant de la vraie version de LokIzy.
+            Le site parle maintenant de la vraie version de Lok Izy.
           </h2>
           <p className="text-lg leading-8 text-[#66736d]">
             La plateforme ne se limite plus a la gestion des biens et des

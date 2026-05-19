@@ -1,6 +1,6 @@
 # Contrat API - Inscription Free
 
-Ce document prepare le contrat du futur endpoint public d'inscription `Free` pour LokIzy.
+Ce document prepare le contrat du futur endpoint public d'inscription `Free` pour Lok Izy.
 
 Objectif :
 - permettre au site vitrine d'envoyer une inscription self-service
@@ -263,4 +263,3 @@ Pour un endpoint public :
 - captcha ou protection anti-bot si exposition ouverte
 - eventuelle verification email avant activation complete
 - ne jamais laisser le client choisir librement un plan autre que `Free`
-

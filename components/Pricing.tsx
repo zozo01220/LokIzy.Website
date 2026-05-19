@@ -59,7 +59,7 @@ export default function Pricing() {
           </h2>
           <p className="text-lg leading-8 text-[#66736d]">
             Les niveaux ci-dessous reprennent les plans structures dans
-            LokIzy: Free, Pro et Business, avec leurs quotas par organisation.
+            Lok Izy: Free, Pro et Business, avec leurs quotas par organisation.
           </p>
         </div>
 

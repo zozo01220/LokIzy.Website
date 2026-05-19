@@ -4,9 +4,9 @@ import Navbar from "@/components/Navbar";
 import SignupForm from "@/components/SignupForm";
 
 export const metadata: Metadata = {
-  title: "S'inscrire | LokIzy",
+  title: "Participer au sondage | Lok Izy",
   description:
-    "Creez votre compte LokIzy en plan Free et preparez votre organisation owner depuis le site.",
+    "Partagez vos besoins et participez au sondage produit Lok Izy.",
 };
 
 export default function SignupPage() {

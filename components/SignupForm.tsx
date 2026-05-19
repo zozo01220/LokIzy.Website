@@ -2,34 +2,36 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import {
-  LOGIN_URL,
-  REGISTRATION_ENDPOINT,
-  REGISTRATION_MODE,
-} from "@/lib/app-config";
+import { SURVEY_ENDPOINT, SURVEY_MODE } from "@/lib/app-config";
+
+const CANCEL_URL = "https://lokizy-web.vercel.app/";
 
 type SignupFormValues = {
-  contactFirstName: string;
-  contactLastName: string;
-  ownerEmail: string;
-  password: string;
-  confirmPassword: string;
+  fullName: string;
+  email: string;
+  profile: string;
+  surveyPain: string;
+  surveyFeature: string;
+  surveyPrice: string;
+  notifyOnLaunch: boolean;
 };
 
 type SignupErrors = Partial<Record<keyof SignupFormValues, string>>;
 
 type SubmissionState =
   | { type: "idle" }
-  | { type: "pending_preview"; payload: Record<string, unknown> }
-  | { type: "success"; message: string; loginUrl: string }
+  | { type: "preview"; payload: Record<string, unknown> }
+  | { type: "success"; message: string }
   | { type: "error"; message: string };
 
 const initialValues: SignupFormValues = {
-  contactFirstName: "",
-  contactLastName: "",
-  ownerEmail: "",
-  password: "",
-  confirmPassword: "",
+  fullName: "",
+  email: "",
+  profile: "",
+  surveyPain: "",
+  surveyFeature: "",
+  surveyPrice: "",
+  notifyOnLaunch: true,
 };
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,63 +55,34 @@ export default function SignupForm() {
   function validateForm(input: SignupFormValues) {
     const nextErrors: SignupErrors = {};
 
-    if (!input.contactFirstName.trim()) {
-      nextErrors.contactFirstName = "Le prenom du contact est requis.";
+    if (!input.fullName.trim()) {
+      nextErrors.fullName = "Le nom complet est requis.";
     }
 
-    if (!input.contactLastName.trim()) {
-      nextErrors.contactLastName = "Le nom du contact est requis.";
+    if (!input.email.trim()) {
+      nextErrors.email = "L'email est requis.";
+    } else if (!emailPattern.test(input.email.trim())) {
+      nextErrors.email = "Entre une adresse email valide.";
     }
 
-    if (!input.ownerEmail.trim()) {
-      nextErrors.ownerEmail = "L'email de connexion est requis.";
-    } else if (!emailPattern.test(input.ownerEmail.trim())) {
-      nextErrors.ownerEmail = "Entre une adresse email valide.";
-    }
-
-    if (!input.password) {
-      nextErrors.password = "Le mot de passe est requis.";
-    } else if (input.password.length < 8) {
-      nextErrors.password =
-        "Le mot de passe doit contenir au moins 8 caracteres.";
-    }
-
-    if (!input.confirmPassword) {
-      nextErrors.confirmPassword = "Confirme le mot de passe.";
-    } else if (input.confirmPassword !== input.password) {
-      nextErrors.confirmPassword =
-        "Le mot de passe et sa confirmation ne correspondent pas.";
+    if (!input.profile.trim()) {
+      nextErrors.profile = "Le profil est requis.";
     }
 
     return nextErrors;
   }
 
   function buildPayload(input: SignupFormValues) {
-    const ownerDisplayName = `${input.contactFirstName.trim()} ${input.contactLastName.trim()}`.trim();
-    const contactEmail = input.ownerEmail.trim();
-    const organizationName = ownerDisplayName || contactEmail;
-
     return {
-      plan: "Free",
-      organizationName,
-      legalName: organizationName,
-      contactFirstName: input.contactFirstName.trim(),
-      contactLastName: input.contactLastName.trim(),
-      contactEmail,
-      contactPhone: null,
-      billingEmail: contactEmail,
-      ownerDisplayName,
-      ownerEmail: contactEmail,
-      ownerPassword: input.password,
-      companyName: null,
-      notes: null,
-    };
-  }
-
-  function buildPreviewPayload(payload: Record<string, unknown>) {
-    return {
-      ...payload,
-      ownerPassword: "********",
+      fullName: input.fullName.trim(),
+      email: input.email.trim(),
+      profile: input.profile.trim(),
+      surveyPain: input.surveyPain.trim() || null,
+      surveyFeature: input.surveyFeature.trim() || null,
+      surveyPrice: input.surveyPrice.trim() || null,
+      notifyOnLaunch: input.notifyOnLaunch,
+      source: "website_survey_form",
+      createdAtPreview: new Date().toISOString(),
     };
   }
 
@@ -125,12 +98,11 @@ export default function SignupForm() {
     }
 
     const payload = buildPayload(values);
-    const previewPayload = buildPreviewPayload(payload);
 
-    if (REGISTRATION_MODE !== "live" || !REGISTRATION_ENDPOINT) {
+    if (SURVEY_MODE !== "live" || !SURVEY_ENDPOINT) {
       setSubmissionState({
-        type: "pending_preview",
-        payload: previewPayload,
+        type: "preview",
+        payload,
       });
       return;
     }
@@ -138,7 +110,7 @@ export default function SignupForm() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(REGISTRATION_ENDPOINT, {
+      const response = await fetch(SURVEY_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -156,8 +128,7 @@ export default function SignupForm() {
         type: "success",
         message:
           extractSuccessMessage(responseBody) ||
-          "Compte cree. Tu peux maintenant te connecter a l'application.",
-        loginUrl: extractLoginUrl(responseBody) || LOGIN_URL,
+          "Sondage enregistre avec succes.",
       });
       setValues(initialValues);
     } catch (error) {
@@ -166,7 +137,7 @@ export default function SignupForm() {
         message:
           error instanceof Error
             ? error.message
-            : "Une erreur inconnue est survenue pendant l'inscription.",
+            : "Une erreur inconnue est survenue pendant l'enregistrement.",
       });
     } finally {
       setIsSubmitting(false);
@@ -174,96 +145,150 @@ export default function SignupForm() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto max-w-4xl">
       <div className="glass-card p-8 sm:p-10">
         <div className="mb-8">
           <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
-            Offre Free
+            Sondage produit
           </p>
           <h1 className="text-4xl font-bold text-[#101513] sm:text-5xl">
-            Cree ton compte LokIzy.
+            Participer au sondage Lok Izy.
           </h1>
+          <p className="mt-4 max-w-2xl text-lg leading-8 text-[#66736d]">
+            Le produit n&apos;est pas encore en phase de vente publique. Ce
+            formulaire nous aide a mieux comprendre les besoins prioritaires et
+            a preparer le futur branchement de la collecte.
+          </p>
         </div>
 
         <div className="mb-8 rounded-3xl border border-[#16a34a]/15 bg-[#e8f7ee] p-5 text-[#0f6f34]">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.14em]">
-                Mode inscription
+                Statut du formulaire
               </p>
               <p className="mt-1 text-base font-semibold">
-                {REGISTRATION_MODE === "live"
+                {SURVEY_MODE === "live"
                   ? "Endpoint connecte"
-                  : "Endpoint pas encore pret"}
+                  : "Sondage pret, en attente du branchement base de donnees"}
               </p>
             </div>
             <span className="inline-flex w-fit rounded-full bg-white px-4 py-2 text-sm font-bold text-[#0f6f34]">
-              {REGISTRATION_MODE === "live" ? "Live" : "Preview"}
+              {SURVEY_MODE === "live" ? "Live" : "Preview"}
             </span>
           </div>
           <p className="mt-4 text-sm leading-6">
-            {REGISTRATION_MODE === "live"
-              ? "Le formulaire envoie maintenant une requete reelle vers l'endpoint public d'inscription."
-              : "Aucun compte n'est cree pour l'instant. Le submit affiche simplement la requete qui sera envoyee au futur endpoint."}
+            {SURVEY_MODE === "live"
+              ? "Le formulaire envoie maintenant une requete reelle vers l'endpoint public de sondage."
+              : "Le bouton ne soumet rien pour l'instant. Il prepare simplement la structure qui sera reliee plus tard a la DB ou a un endpoint."}
           </p>
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
           <div className="grid gap-5 sm:grid-cols-2">
             <FormField
-              id="contactFirstName"
-              label="Prenom"
-              value={values.contactFirstName}
-              error={errors.contactFirstName}
-              onChange={(value) => updateField("contactFirstName", value)}
-              placeholder="Prenom"
+              id="fullName"
+              label="Nom complet"
+              required
+              value={values.fullName}
+              error={errors.fullName}
+              onChange={(value) => updateField("fullName", value)}
+              placeholder="Prenom Nom"
             />
             <FormField
-              id="contactLastName"
-              label="Nom"
-              value={values.contactLastName}
-              error={errors.contactLastName}
-              onChange={(value) => updateField("contactLastName", value)}
-              placeholder="Nom"
-            />
-            <FormField
-              id="ownerEmail"
-              label="Email de connexion"
+              id="email"
+              label="Email"
+              required
               type="email"
-              value={values.ownerEmail}
-              error={errors.ownerEmail}
-              onChange={(value) => updateField("ownerEmail", value)}
+              value={values.email}
+              error={errors.email}
+              onChange={(value) => updateField("email", value)}
               placeholder="nom@entreprise.com"
             />
             <div className="space-y-2">
-              <label
-                htmlFor="plan"
-                className="text-sm font-semibold text-[#101513]"
+              <FieldLabel htmlFor="profile" required>
+                Profil
+              </FieldLabel>
+              <select
+                id="profile"
+                value={values.profile}
+                onChange={(event) => updateField("profile", event.target.value)}
+                className={`h-14 w-full rounded-2xl border bg-white px-4 text-[#101513] outline-none transition focus:ring-4 ${
+                  errors.profile
+                    ? "border-[#f04438] focus:border-[#f04438] focus:ring-[#f04438]/10"
+                    : "border-[#d9e5de] focus:border-[#16a34a] focus:ring-[#16a34a]/10"
+                }`}
               >
-                Plan
-              </label>
-              <div className="flex h-14 items-center rounded-2xl border border-[#d9e5de] bg-[#f7faf8] px-4 text-sm font-bold text-[#0f6f34]">
-                Free
+                <option value="">Selectionner un profil</option>
+                <option value="proprietaire">Proprietaire / admin</option>
+                <option value="locataire">Locataire</option>
+                <option value="partenaire">Partenaire</option>
+                <option value="autre">Autre</option>
+              </select>
+              {errors.profile ? (
+                <p className="text-sm font-medium text-[#b42318]">
+                  {errors.profile}
+                </p>
+              ) : null}
+            </div>
+
+            <TextareaField
+              id="surveyPain"
+              label="1. Je developpe une plateforme de gestion locative pour petits proprietaires. Quelle est votre plus grosse galere aujourd'hui ?"
+              value={values.surveyPain}
+              onChange={(value) => updateField("surveyPain", value)}
+              placeholder="Decris la difficulte principale que tu rencontres aujourd'hui."
+              className="sm:col-span-2"
+            />
+            <TextareaField
+              id="surveyFeature"
+              label="2. Quelle fonctionnalite vous ferait gagner le plus de temps ?"
+              value={values.surveyFeature}
+              onChange={(value) => updateField("surveyFeature", value)}
+              placeholder="Exemple : relances automatiques, suivi des incidents, quittances, dashboard..."
+              className="sm:col-span-2"
+            />
+            <TextareaField
+              id="surveyPrice"
+              label="3. Si un logiciel vous faisait gagner 5h/mois, combien seriez-vous pret a payer ?"
+              value={values.surveyPrice}
+              onChange={(value) => updateField("surveyPrice", value)}
+              placeholder="Exemple : 15 EUR/mois, 29 EUR/mois, 49 EUR/mois..."
+              className="sm:col-span-2"
+            />
+
+            <div className="sm:col-span-2">
+              <div className="flex items-center gap-4 rounded-3xl border border-[#d9e5de] bg-white px-5 py-4">
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={values.notifyOnLaunch}
+                  onClick={() =>
+                    updateField("notifyOnLaunch", !values.notifyOnLaunch)
+                  }
+                  className={`relative inline-flex h-8 w-14 shrink-0 items-center rounded-full transition ${
+                    values.notifyOnLaunch ? "bg-[#16a34a]" : "bg-[#cfd9d3]"
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-6 w-6 rounded-full bg-white shadow transition ${
+                      values.notifyOnLaunch
+                        ? "translate-x-7"
+                        : "translate-x-1"
+                    }`}
+                  />
+                </button>
+
+                <div>
+                  <p className="text-sm font-semibold text-[#101513]">
+                    Etre informe de la sortie du produit
+                  </p>
+                  <p className="mt-1 text-sm text-[#66736d]">
+                    Active pour recevoir l'information quand Lok Izy sera disponible.
+                  </p>
+                </div>
               </div>
             </div>
-            <FormField
-              id="password"
-              label="Mot de passe"
-              type="password"
-              value={values.password}
-              error={errors.password}
-              onChange={(value) => updateField("password", value)}
-              placeholder="Au moins 8 caracteres"
-            />
-            <FormField
-              id="confirmPassword"
-              label="Confirmation du mot de passe"
-              type="password"
-              value={values.confirmPassword}
-              error={errors.confirmPassword}
-              onChange={(value) => updateField("confirmPassword", value)}
-              placeholder="Retape le mot de passe"
-            />
           </div>
 
           <div className="flex flex-col gap-4 sm:flex-row">
@@ -272,24 +297,25 @@ export default function SignupForm() {
               disabled={isSubmitting}
               className="inline-flex h-14 items-center justify-center rounded-full bg-[#0f6f34] px-7 text-base font-semibold text-white shadow-lg shadow-[#16a34a]/20 transition hover:bg-[#0b4f25] disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {isSubmitting
-                ? "Creation en cours..."
-                : REGISTRATION_MODE === "live"
-                  ? "Creer mon compte Free"
-                  : "Tester le formulaire"}
+              {isSubmitting ? "Enregistrement..." : "Enregistrer"}
             </button>
             <Link
-              href={LOGIN_URL}
+              href={CANCEL_URL}
               className="inline-flex h-14 items-center justify-center rounded-full border border-[#d9e5de] bg-white px-7 text-base font-semibold text-[#0f6f34] transition hover:border-[#0f6f34] hover:bg-[#e8f7ee]"
             >
-              J'ai deja un compte
+              Abandonner
             </Link>
           </div>
 
-          {submissionState.type === "pending_preview" ? (
+          {submissionState.type === "preview" ? (
             <article className="rounded-3xl border border-dashed border-[#16a34a]/25 p-6">
               <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
-                Preview de requete
+                Preview du futur payload
+              </p>
+              <p className="mb-4 text-sm leading-6 text-[#66736d]">
+                Cette donnee n&apos;est pas encore envoyee. Elle montre
+                simplement ce qui pourra etre stocke ou transmis quand nous
+                brancherons la DB.
               </p>
               <pre className="overflow-x-auto rounded-2xl bg-[#101513] p-5 text-sm leading-6 text-[#e8f7ee]">
                 {JSON.stringify(submissionState.payload, null, 2)}
@@ -300,24 +326,18 @@ export default function SignupForm() {
           {submissionState.type === "success" ? (
             <article className="rounded-3xl border border-[#16a34a]/20 bg-[#e8f7ee] p-6 text-[#0f6f34]">
               <p className="text-sm font-bold uppercase tracking-[0.18em]">
-                Inscription envoyee
+                Sondage enregistre
               </p>
               <p className="mt-3 text-base leading-7">
                 {submissionState.message}
               </p>
-              <a
-                href={submissionState.loginUrl}
-                className="mt-5 inline-flex rounded-full bg-[#0f6f34] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0b4f25]"
-              >
-                Aller a la connexion
-              </a>
             </article>
           ) : null}
 
           {submissionState.type === "error" ? (
             <article className="rounded-3xl border border-[#f04438]/20 bg-[#fef3f2] p-6 text-[#b42318]">
               <p className="text-sm font-bold uppercase tracking-[0.18em]">
-                Erreur d'inscription
+                Erreur d'enregistrement
               </p>
               <p className="mt-3 text-base leading-7">
                 {submissionState.message}
@@ -330,13 +350,18 @@ export default function SignupForm() {
   );
 }
 
-type FormFieldProps = {
+type BaseFieldProps = {
   id: string;
   label: string;
   value: string;
   onChange: (value: string) => void;
   error?: string;
   placeholder?: string;
+  required?: boolean;
+  className?: string;
+};
+
+type FormFieldProps = BaseFieldProps & {
   type?: string;
 };
 
@@ -348,12 +373,13 @@ function FormField({
   error,
   placeholder,
   type = "text",
+  required = false,
 }: FormFieldProps) {
   return (
     <div className="space-y-2">
-      <label htmlFor={id} className="text-sm font-semibold text-[#101513]">
+      <FieldLabel htmlFor={id} required={required}>
         {label}
-      </label>
+      </FieldLabel>
       <input
         id={id}
         type={type}
@@ -370,6 +396,46 @@ function FormField({
         <p className="text-sm font-medium text-[#b42318]">{error}</p>
       ) : null}
     </div>
+  );
+}
+
+function TextareaField({
+  id,
+  label,
+  value,
+  onChange,
+  placeholder,
+  className,
+}: BaseFieldProps) {
+  return (
+    <div className={`space-y-2 ${className ?? ""}`}>
+      <FieldLabel htmlFor={id}>{label}</FieldLabel>
+      <textarea
+        id={id}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder={placeholder}
+        rows={5}
+        className="w-full rounded-2xl border border-[#d9e5de] bg-white px-4 py-4 text-[#101513] outline-none transition focus:border-[#16a34a] focus:ring-4 focus:ring-[#16a34a]/10"
+      />
+    </div>
+  );
+}
+
+function FieldLabel({
+  htmlFor,
+  required = false,
+  children,
+}: {
+  htmlFor: string;
+  required?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <label htmlFor={htmlFor} className="text-sm font-semibold text-[#101513]">
+      {children}
+      {required ? <span className="ml-1 text-[#f04438]">*</span> : null}
+    </label>
   );
 }
 
@@ -408,7 +474,7 @@ function extractErrorMessage(body: unknown) {
     }
   }
 
-  return "Impossible de creer le compte pour le moment.";
+  return "Impossible d'enregistrer le sondage pour le moment.";
 }
 
 function extractSuccessMessage(body: unknown) {
@@ -416,17 +482,6 @@ function extractSuccessMessage(body: unknown) {
     const candidate = body as Record<string, unknown>;
     if (typeof candidate.message === "string" && candidate.message.trim()) {
       return candidate.message;
-    }
-  }
-
-  return "";
-}
-
-function extractLoginUrl(body: unknown) {
-  if (body && typeof body === "object") {
-    const candidate = body as Record<string, unknown>;
-    if (typeof candidate.loginUrl === "string" && candidate.loginUrl.trim()) {
-      return candidate.loginUrl;
     }
   }
 

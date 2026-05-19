@@ -1,13 +1,13 @@
 const faq = [
   {
-    question: "LokIzy couvre-t-il aussi la recherche de locataires ?",
+    question: "Lok Izy couvre-t-il aussi la recherche de locataires ?",
     answer:
       "Oui. L'app gere les campagnes candidats, la qualification des profils, la planification des visites et la conversion en locataire dans le meme flux.",
   },
   {
     question: "Peut-on travailler a plusieurs dans le meme espace ?",
     answer:
-      "Oui. LokIzy introduit un espace organisation owner avec gestion des admins, des quotas et d'un portefeuille partage par equipe.",
+      "Oui. Lok Izy introduit un espace organisation owner avec gestion des admins, des quotas et d'un portefeuille partage par equipe.",
   },
   {
     question: "Que devient la signature des documents ?",

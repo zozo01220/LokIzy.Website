@@ -10,17 +10,15 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   const links = [
-    { label: "Nouveautes", href: "/#nouveautes" },
     { label: "Fonctionnalites", href: "/#fonctionnalites" },
     { label: "Workflow", href: "/#workflow" },
-    { label: "Plans", href: "/#tarifs" },
     { label: "FAQ", href: "/#faq" },
   ];
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-[#e4ebe7] bg-white/90 backdrop-blur-xl">
       <div className="section-container flex h-20 items-center justify-between">
-        <Link href="/" className="flex items-center" aria-label="LokIzy">
+        <Link href="/" className="flex items-center" aria-label="Lok Izy">
           <Logo />
         </Link>
 
@@ -47,7 +45,7 @@ export default function Navbar() {
             href={SIGNUP_PATH}
             className="rounded-full bg-[#0f6f34] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0b4f25]"
           >
-            S'inscrire
+            Participer au sondage
           </Link>
         </div>
 
@@ -81,7 +79,7 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
               className="inline-flex justify-center rounded-full bg-[#0f6f34] px-5 py-3 font-semibold text-white transition hover:bg-[#0b4f25]"
             >
-              S'inscrire
+              Participer au sondage
             </Link>
           </div>
         </div>
