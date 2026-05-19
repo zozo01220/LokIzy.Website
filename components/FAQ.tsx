@@ -22,7 +22,7 @@ const faq = [
   {
     question: "Les candidats ont-ils aussi leur espace ?",
     answer:
-      "Les candidats sont suivis dans un espace de gestion dédié côté propriétaire ou admin, avec candidatures centralisées, scoring, campagnes et progression jusqu'à la conversion en locataire.",
+      "Oui. Les candidats disposent d'un espace dédié pour déposer les documents liés à leur candidature.",
   },
 ];
 
