@@ -10,7 +10,7 @@ export default function Footer() {
         </Link>
 
         <div className="text-center text-[#66736d] lg:text-right">
-          &copy; 2026 Lok Izy. Gestion locative, candidats, signatures et pilotage owner dans un seul produit.
+          &copy; 2026 Lok Izy. La gestion locative plus claire, plus rapide et mieux pilotée.
         </div>
       </div>
     </footer>

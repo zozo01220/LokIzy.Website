@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import SignupForm from "@/components/SignupForm";
+import SurveyForm from "@/components/SurveyForm";
 
 export const metadata: Metadata = {
   title: "Participer au sondage | Lok Izy",
@@ -15,7 +15,7 @@ export default function SignupPage() {
       <Navbar />
       <main className="soft-grid pt-28">
         <section className="section-container py-16 lg:py-20">
-          <SignupForm />
+          <SurveyForm />
         </section>
       </main>
       <Footer />

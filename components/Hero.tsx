@@ -3,16 +3,9 @@ import Link from "next/link";
 import { LOGIN_URL, SIGNUP_PATH } from "@/lib/app-config";
 
 const heroStats = [
-  ["Dashboard", "revenus, occupation et alertes"],
-  ["Locataires", "candidats, baux et incidents relies"],
-  ["Automatisation", "loyers, quittances et historique"],
-];
-
-const dashboardKpis = [
-  ["Revenus encaisses", "CHF 18 450"],
-  ["Revenus en cours", "CHF 6 200"],
-  ["Occupation", "94%"],
-  ["Alertes", "05"],
+  ["Vision immédiate", "revenus, occupation et alertes en un coup d'œil"],
+  ["Tout centralisé", "biens, candidats, baux, incidents et documents"],
+  ["Moins d'oublis", "automatisations et historique pour sécuriser le quotidien"],
 ];
 
 export default function Hero() {
@@ -32,17 +25,18 @@ export default function Hero() {
       <div className="section-container grid min-h-[760px] items-center gap-16 py-10 lg:grid-cols-[0.98fr_1.02fr] lg:py-16">
         <div className="max-w-3xl">
           <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-[#16a34a]/20 bg-white/80 px-4 py-2 text-sm font-semibold text-[#0f6f34]">
-            Gestion locative moderne pour proprietaires, admins et locataires
+            Le cockpit locatif pensé pour les petits propriétaires et leurs équipes
           </div>
 
           <h1 className="max-w-4xl text-5xl font-bold leading-[1.02] tracking-normal text-[#101513] sm:text-6xl lg:text-7xl">
-            Lok Izy centralise le pilotage locatif, les operations terrain et le suivi locataire.
+            Reprenez le contrôle de votre gestion locative, sans tableurs, sans relances oubliées, sans dispersion.
           </h1>
 
           <p className="mt-7 max-w-2xl text-lg leading-8 text-[#66736d] sm:text-xl">
-            Une seule application pour suivre les biens, les candidats, les
-            baux, les loyers, les incidents, les documents et les notifications,
-            avec une vraie lecture operationnelle du quotidien.
+            Lok Izy réunit dans un seul outil le pilotage du portefeuille,
+            la gestion des locataires, les loyers, les incidents, les
+            documents et les signatures pour faire gagner du temps et réduire
+            la charge mentale.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -56,13 +50,16 @@ export default function Hero() {
               href="#workflow"
               className="inline-flex h-14 items-center justify-center rounded-full border border-[#16a34a]/20 bg-white px-7 text-base font-semibold text-[#0f6f34] transition hover:border-[#0f6f34] hover:bg-[#e8f7ee] sm:w-auto"
             >
-              Comprendre le parcours
+              Voir comment ça marche
             </a>
           </div>
 
           <div className="mt-12 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3">
             {heroStats.map(([value, label]) => (
-              <div key={value} className="rounded-3xl border border-[#e4ebe7] bg-white/70 p-5 shadow-[0_12px_35px_rgba(16,21,19,0.04)]">
+              <div
+                key={value}
+                className="rounded-3xl border border-[#e4ebe7] bg-white/70 p-5 shadow-[0_12px_35px_rgba(16,21,19,0.04)]"
+              >
                 <div className="text-2xl font-bold text-[#101513]">{value}</div>
                 <div className="mt-2 text-sm leading-5 text-[#66736d]">
                   {label}

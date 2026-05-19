@@ -6,7 +6,7 @@ import { SURVEY_ENDPOINT, SURVEY_MODE } from "@/lib/app-config";
 
 const CANCEL_URL = "https://lokizy-web.vercel.app/";
 
-type SignupFormValues = {
+type SurveyFormValues = {
   fullName: string;
   email: string;
   profile: string;
@@ -16,7 +16,7 @@ type SignupFormValues = {
   notifyOnLaunch: boolean;
 };
 
-type SignupErrors = Partial<Record<keyof SignupFormValues, string>>;
+type SurveyErrors = Partial<Record<keyof SurveyFormValues, string>>;
 
 type SubmissionState =
   | { type: "idle" }
@@ -24,7 +24,7 @@ type SubmissionState =
   | { type: "success"; message: string }
   | { type: "error"; message: string };
 
-const initialValues: SignupFormValues = {
+const initialValues: SurveyFormValues = {
   fullName: "",
   email: "",
   profile: "",
@@ -36,24 +36,24 @@ const initialValues: SignupFormValues = {
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export default function SignupForm() {
-  const [values, setValues] = useState<SignupFormValues>(initialValues);
-  const [errors, setErrors] = useState<SignupErrors>({});
+export default function SurveyForm() {
+  const [values, setValues] = useState<SurveyFormValues>(initialValues);
+  const [errors, setErrors] = useState<SurveyErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionState, setSubmissionState] = useState<SubmissionState>({
     type: "idle",
   });
 
-  function updateField<Key extends keyof SignupFormValues>(
+  function updateField<Key extends keyof SurveyFormValues>(
     field: Key,
-    value: SignupFormValues[Key],
+    value: SurveyFormValues[Key],
   ) {
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
   }
 
-  function validateForm(input: SignupFormValues) {
-    const nextErrors: SignupErrors = {};
+  function validateForm(input: SurveyFormValues) {
+    const nextErrors: SurveyErrors = {};
 
     if (!input.fullName.trim()) {
       nextErrors.fullName = "Le nom complet est requis.";
@@ -62,7 +62,7 @@ export default function SignupForm() {
     if (!input.email.trim()) {
       nextErrors.email = "L'email est requis.";
     } else if (!emailPattern.test(input.email.trim())) {
-      nextErrors.email = "Entre une adresse email valide.";
+      nextErrors.email = "Entrez une adresse email valide.";
     }
 
     if (!input.profile.trim()) {
@@ -72,7 +72,7 @@ export default function SignupForm() {
     return nextErrors;
   }
 
-  function buildPayload(input: SignupFormValues) {
+  function buildPayload(input: SurveyFormValues) {
     return {
       fullName: input.fullName.trim(),
       email: input.email.trim(),
@@ -128,7 +128,7 @@ export default function SignupForm() {
         type: "success",
         message:
           extractSuccessMessage(responseBody) ||
-          "Sondage enregistre avec succes.",
+          "Sondage enregistré avec succès.",
       });
       setValues(initialValues);
     } catch (error) {
@@ -156,8 +156,8 @@ export default function SignupForm() {
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-[#66736d]">
             Le produit n&apos;est pas encore en phase de vente publique. Ce
-            formulaire nous aide a mieux comprendre les besoins prioritaires et
-            a preparer le futur branchement de la collecte.
+            formulaire nous aide à mieux comprendre les besoins prioritaires et
+            à préparer le futur branchement de la collecte.
           </p>
         </div>
 
@@ -169,8 +169,8 @@ export default function SignupForm() {
               </p>
               <p className="mt-1 text-base font-semibold">
                 {SURVEY_MODE === "live"
-                  ? "Endpoint connecte"
-                  : "Sondage pret, en attente du branchement base de donnees"}
+                  ? "Endpoint connecté"
+                  : "Sondage prêt, en attente du branchement base de données"}
               </p>
             </div>
             <span className="inline-flex w-fit rounded-full bg-white px-4 py-2 text-sm font-bold text-[#0f6f34]">
@@ -179,8 +179,8 @@ export default function SignupForm() {
           </div>
           <p className="mt-4 text-sm leading-6">
             {SURVEY_MODE === "live"
-              ? "Le formulaire envoie maintenant une requete reelle vers l'endpoint public de sondage."
-              : "Le bouton ne soumet rien pour l'instant. Il prepare simplement la structure qui sera reliee plus tard a la DB ou a un endpoint."}
+              ? "Le formulaire envoie maintenant une requête réelle vers l'endpoint public de sondage."
+              : "Le bouton ne soumet rien pour l'instant. Il prépare simplement la structure qui sera reliée plus tard à la DB ou à un endpoint."}
           </p>
         </div>
 
@@ -193,7 +193,7 @@ export default function SignupForm() {
               value={values.fullName}
               error={errors.fullName}
               onChange={(value) => updateField("fullName", value)}
-              placeholder="Prenom Nom"
+              placeholder="Prénom Nom"
             />
             <FormField
               id="email"
@@ -219,8 +219,8 @@ export default function SignupForm() {
                     : "border-[#d9e5de] focus:border-[#16a34a] focus:ring-[#16a34a]/10"
                 }`}
               >
-                <option value="">Selectionner un profil</option>
-                <option value="proprietaire">Proprietaire / admin</option>
+                <option value="">Sélectionner un profil</option>
+                <option value="proprietaire">Propriétaire / admin</option>
                 <option value="locataire">Locataire</option>
                 <option value="partenaire">Partenaire</option>
                 <option value="autre">Autre</option>
@@ -234,15 +234,15 @@ export default function SignupForm() {
 
             <TextareaField
               id="surveyPain"
-              label="1. Je developpe une plateforme de gestion locative pour petits proprietaires. Quelle est votre plus grosse galere aujourd'hui ?"
+              label="1. Je développe une plateforme de gestion locative pour petits propriétaires. Quelle est votre plus grosse galère aujourd'hui ?"
               value={values.surveyPain}
               onChange={(value) => updateField("surveyPain", value)}
-              placeholder="Decris la difficulte principale que tu rencontres aujourd'hui."
+              placeholder="Décrivez la difficulté principale que vous rencontrez aujourd'hui."
               className="sm:col-span-2"
             />
             <TextareaField
               id="surveyFeature"
-              label="2. Quelle fonctionnalite vous ferait gagner le plus de temps ?"
+              label="2. Quelle fonctionnalité vous ferait gagner le plus de temps ?"
               value={values.surveyFeature}
               onChange={(value) => updateField("surveyFeature", value)}
               placeholder="Exemple : relances automatiques, suivi des incidents, quittances, dashboard..."
@@ -250,7 +250,7 @@ export default function SignupForm() {
             />
             <TextareaField
               id="surveyPrice"
-              label="3. Si un logiciel vous faisait gagner 5h/mois, combien seriez-vous pret a payer ?"
+              label="3. Si un logiciel vous faisait gagner 5h/mois, combien seriez-vous prêt à payer ?"
               value={values.surveyPrice}
               onChange={(value) => updateField("surveyPrice", value)}
               placeholder="Exemple : 15 EUR/mois, 29 EUR/mois, 49 EUR/mois..."
@@ -281,10 +281,10 @@ export default function SignupForm() {
 
                 <div>
                   <p className="text-sm font-semibold text-[#101513]">
-                    Etre informe de la sortie du produit
+                    Être informé de la sortie du produit
                   </p>
                   <p className="mt-1 text-sm text-[#66736d]">
-                    Active pour recevoir l'information quand Lok Izy sera disponible.
+                    Activé pour recevoir l'information quand Lok Izy sera disponible.
                   </p>
                 </div>
               </div>
@@ -313,8 +313,8 @@ export default function SignupForm() {
                 Preview du futur payload
               </p>
               <p className="mb-4 text-sm leading-6 text-[#66736d]">
-                Cette donnee n&apos;est pas encore envoyee. Elle montre
-                simplement ce qui pourra etre stocke ou transmis quand nous
+                Cette donnée n&apos;est pas encore envoyée. Elle montre
+                simplement ce qui pourra être stocké ou transmis quand nous
                 brancherons la DB.
               </p>
               <pre className="overflow-x-auto rounded-2xl bg-[#101513] p-5 text-sm leading-6 text-[#e8f7ee]">
@@ -326,7 +326,7 @@ export default function SignupForm() {
           {submissionState.type === "success" ? (
             <article className="rounded-3xl border border-[#16a34a]/20 bg-[#e8f7ee] p-6 text-[#0f6f34]">
               <p className="text-sm font-bold uppercase tracking-[0.18em]">
-                Sondage enregistre
+                Sondage enregistré
               </p>
               <p className="mt-3 text-base leading-7">
                 {submissionState.message}

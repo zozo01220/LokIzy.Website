@@ -4,7 +4,7 @@ import { SIGNUP_PATH } from "@/lib/app-config";
 const plans = [
   {
     name: "Free",
-    summary: "Socle d'entree pour demarrer l'activite.",
+    summary: "Socle d'entrée pour démarrer l'activité.",
     features: [
       "3 owners",
       "5 admins",
@@ -32,7 +32,7 @@ const plans = [
   },
   {
     name: "Business",
-    summary: "Capacites etendues pour des organisations multi-equipes.",
+    summary: "Capacités étendues pour des organisations multi-équipes.",
     features: [
       "25 owners",
       "50 admins",
@@ -55,7 +55,7 @@ export default function Pricing() {
             Plans
           </p>
           <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
-            Des capacites claires, alignees sur l'app.
+            Des capacités claires, alignées sur l'app.
           </h2>
           <p className="text-lg leading-8 text-[#66736d]">
             Les niveaux ci-dessous reprennent les plans structures dans
@@ -88,7 +88,7 @@ export default function Pricing() {
 
               <div className="mb-8 rounded-2xl bg-[#f7faf8] px-5 py-4">
                 <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#0f6f34]">
-                  Capacites incluses
+                  Capacités incluses
                 </p>
               </div>
 

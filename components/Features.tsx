@@ -12,197 +12,155 @@ type FeatureGroup = {
 
 const featureGroups: FeatureGroup[] = [
   {
-    title: "Pour les proprietaires / admin",
+    title: "Pour les propriétaires et admins",
     intro:
-      "Un back-office complet pour piloter les biens, les flux financiers, les occupants et les actions de l'equipe.",
+      "Tout ce qu'il faut pour piloter un parc locatif sans perdre du temps à recouper les informations.",
     cards: [
       {
         kpi: "Vue 360",
-        title: "Dashboard pilotage",
+        title: "Pilotez en priorité, pas à l'aveugle",
         description:
-          "Revenus encaisses, revenus en cours, occupation, impayes reels, alertes prioritaires et activites recentes.",
+          "Dashboard avec revenus encaissés, revenus en cours, occupation, impayés réels, alertes prioritaires et activité récente.",
       },
       {
         kpi: "Par bien",
-        title: "Gestion des biens",
+        title: "Gardez chaque logement sous contrôle",
         description:
-          "Creation, modification et suivi des logements avec timeline d'activite detaillee.",
+          "Création, suivi, historique et activité détaillée bien par bien.",
       },
       {
         kpi: "Actifs",
-        title: "Gestion des locataires",
+        title: "Suivez vos locataires sans friction",
         description:
-          "Dossiers actifs, contacts, activite et historique relies a chaque logement.",
+          "Contacts, activité, historique et dossier liés directement au bon logement.",
       },
       {
         kpi: "Scoring",
-        title: "Gestion des candidats",
+        title: "Accélérez la sélection des candidats",
         description:
-          "Candidatures centralisees, campagnes de location et conversion candidat vers locataire.",
+          "Campagnes de location, centralisation des candidatures et conversion fluide en locataire.",
       },
       {
         kpi: "Cycle de vie",
-        title: "Contrats de bail",
+        title: "Sécurisez baux, signatures et activation",
         description:
-          "Creation, edition, signature, activation et suivi complet des baux.",
+          "Création, édition, signature et suivi des baux dans un même parcours.",
       },
       {
-        kpi: "Par piece",
-        title: "Etats des lieux",
+        kpi: "Par pièce",
+        title: "Standardisez états des lieux et inventaires",
         description:
-          "Formulaires structures par onglets avec pieces dynamiques, elements et validation.",
-      },
-      {
-        kpi: "Detail",
-        title: "Inventaires",
-        description:
-          "Gestion du contenu du logement piece par piece sur la meme logique que l'etat des lieux.",
+          "Formulaires structurés pour documenter précisément chaque pièce, chaque élément, chaque validation.",
       },
       {
         kpi: "Back-office",
-        title: "Documents",
+        title: "Centralisez les documents administratifs",
         description:
-          "Import, suppression, classement et consultation des documents administratifs.",
+          "Import, classement, suppression et consultation sans chasse aux pièces jointes.",
       },
       {
         kpi: "PaymentDay",
-        title: "Loyers et finances",
+        title: "Lisez enfin vos loyers correctement",
         description:
-          "Echeances, paiements, statuts en attente ou impayes, relances et lecture des encaissements.",
+          "Échéances, encaissements, relances et impayés selon la vraie date contractuelle.",
       },
       {
-        kpi: "Separe",
-        title: "Depot de garantie",
+        kpi: "Séparé",
+        title: "Distinguez dépôt de garantie et revenus",
         description:
-          "Suivi du depot prevu, encaisse, restitue ou retenu, distinct des revenus locatifs.",
+          "Un suivi dédié pour éviter les confusions dans la lecture financière.",
       },
       {
         kpi: "Auto",
-        title: "Quittances",
+        title: "Générez quittances et loyers sans oubli",
         description:
-          "Generation et mise a disposition des quittances apres enregistrement des paiements.",
+          "Automatisation mensuelle, logique de rattrapage et documents disponibles au bon moment.",
       },
       {
         kpi: "2 voies",
-        title: "Incidents",
+        title: "Traitez les incidents sans perdre le contexte",
         description:
-          "Tickets locataires avec statuts, historique, pieces jointes, echanges et notifications bidirectionnelles.",
-      },
-      {
-        kpi: "Push PWA",
-        title: "Notifications",
-        description:
-          "Centre de notifications, non lues, marquage comme lu et preferences utilisateur.",
-      },
-      {
-        kpi: "Finance",
-        title: "Rapports",
-        description:
-          "Rapport financier et declaration fiscale pour le pilotage comptable.",
-      },
-      {
-        kpi: "Equipe",
-        title: "Organisation",
-        description:
-          "Gestion de l'organisation owner, des admins, du plan et des capacites.",
-      },
-      {
-        kpi: "Centralise",
-        title: "Configuration",
-        description:
-          "Reglages metier, notifications, uploads, IRL, prorata et job mensuel de generation.",
-      },
-      {
-        kpi: "Mensuel",
-        title: "Automatisation des loyers",
-        description:
-          "Job serveur avec logique de rattrapage pour generer les loyers du mois.",
+          "Tickets, échanges, pièces jointes, historique et notifications bidirectionnelles.",
       },
       {
         kpi: "Trace",
-        title: "Audit log",
+        title: "Gardez une traçabilité exploitable",
         description:
-          "Tracabilite des actions importantes realisees dans l'application.",
+          "Audit log, activité récente et configuration centralisée pour fiabiliser l'exploitation.",
       },
     ],
   },
   {
     title: "Pour les locataires",
     intro:
-      "Un espace simple pour consulter, telecharger, signaler et suivre les sujets du quotidien.",
+      "Une expérience claire, simple et rassurante pour réduire les échanges dispersés et améliorer le suivi.",
     cards: [
       {
-        kpi: "Perso",
-        title: "Ma location",
+        kpi: "Vue claire",
+        title: "Retrouvez les infos utiles sans chercher",
         description:
-          "Vue synthetique du logement et des informations utiles en un seul endroit.",
+          "Espace personnel avec synthèse du logement, documents et informations importantes.",
       },
       {
-        kpi: "Partage",
-        title: "Mes documents",
+        kpi: "Partagé",
+        title: "Accédez aux bons documents au bon moment",
         description:
-          "Acces aux documents partages et depot des pieces demandees.",
+          "Documents partagés, pièces demandées et quittances téléchargeables depuis le même espace.",
       },
       {
-        kpi: "Temps reel",
-        title: "Mes paiements",
+        kpi: "Temps réel",
+        title: "Comprenez instantanément votre situation",
         description:
-          "Consultation des loyers, des statuts et des montants dus ou regles.",
-      },
-      {
-        kpi: "Telechargement",
-        title: "Mes quittances",
-        description:
-          "Acces direct aux quittances generees apres encaissement.",
+          "Loyers, statuts, montants dus, règlements et incidents consultables en autonomie.",
       },
       {
         kpi: "Photo + suivi",
-        title: "Mes incidents",
+        title: "Déclarez un incident en quelques clics",
         description:
-          "Ouverture d'incident avec description, photo, statuts et echanges avec le bailleur.",
+          "Description, photo, suivi du statut et échanges avec le bailleur sans changer d'outil.",
       },
       {
         kpi: "Alertes",
-        title: "Notifications",
+        title: "Recevez les bonnes notifications",
         description:
-          "Reception des alertes liees aux incidents, documents, finances et autres evenements.",
+          "Finances, incidents, documents et événements importants restent visibles et suivables.",
       },
       {
         kpi: "Mobile",
-        title: "PWA mobile",
+        title: "Utilisez Lok Izy comme une vraie app",
         description:
-          "Usage fluide comme une app mobile avec notifications push et continuite sur smartphone.",
+          "PWA fluide sur smartphone avec continuité d'usage et notifications push.",
       },
     ],
   },
   {
-    title: "Ce qui est utile au quotidien",
+    title: "Ce qui change vraiment au quotidien",
     intro:
-      "Des details produit concrets qui simplifient l'exploitation et rendent les lectures plus fiables.",
+      "Des choix produit concrets qui font gagner du temps, évitent les oublis et rendent la trésorerie plus lisible.",
     cards: [
       {
         kpi: "Contrat",
-        title: "Regle PaymentDay",
+        title: "N'affichez pas un faux impayé trop tôt",
         description:
-          "Evite de marquer un loyer comme impaye avant sa vraie date contractuelle.",
+          "La règle PaymentDay respecte la vraie date contractuelle avant de basculer un loyer en impayé.",
       },
       {
-        kpi: "Tresorerie",
-        title: "Revenu encaisse / en cours",
+        kpi: "Trésorerie",
+        title: "Distinguez l'argent encaissé de l'argent attendu",
         description:
-          "Donne une lecture plus realiste de la tresorerie au quotidien.",
+          "Une lecture plus réaliste pour piloter sereinement les entrées d'argent.",
       },
       {
-        kpi: "Tout centralise",
-        title: "Documents + incidents + loyers",
+        kpi: "Tout centralisé",
+        title: "Réduisez les échanges dispersés",
         description:
-          "Limite les echanges disperses par email ou messagerie externe.",
+          "Documents, loyers et incidents sont regroupés au même endroit au lieu d'être perdus entre emails et messages.",
       },
       {
         kpi: "Moins d'oubli",
-        title: "Automatisation + historique",
+        title: "Fiabilisez votre gestion sans vous surcharger",
         description:
-          "Reduit les oublis et ameliore la tracabilite des operations.",
+          "Automatisation, historique et suivi opérationnel limitent les erreurs et les angles morts.",
       },
     ],
   },
@@ -214,15 +172,16 @@ export default function Features() {
       <div className="section-container">
         <div className="mb-16 max-w-4xl">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
-            Fonctionnalites
+            Pourquoi Lok Izy
           </p>
           <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
-            Des modules presentes comme de vrais blocs produit, pas comme une simple liste.
+            Une plateforme conçue pour faire gagner du temps, clarifier les décisions et professionnaliser la gestion locative.
           </h2>
 
           <p className="text-lg leading-8 text-[#66736d]">
-            Chaque carte met en avant l'usage cle, avec un titre fort et une
-            description plus discrete pour garder une lecture rapide.
+            Là où beaucoup d'outils empilent des écrans, Lok Izy relie enfin
+            les opérations du quotidien dans une expérience claire, exploitable
+            et pensée pour la vraie vie.
           </p>
         </div>
 

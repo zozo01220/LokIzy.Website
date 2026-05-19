@@ -1,23 +1,23 @@
 const faq = [
   {
-    question: "Lok Izy couvre-t-il aussi la recherche de locataires ?",
+    question: "À qui s'adresse Lok Izy ?",
     answer:
-      "Oui. L'app gere les campagnes candidats, la qualification des profils, la planification des visites et la conversion en locataire dans le meme flux.",
+      "Lok Izy s'adresse aux petits propriétaires, aux structures de gestion et aux équipes qui veulent sortir des outils dispersés pour piloter leur activité plus sereinement.",
   },
   {
-    question: "Peut-on travailler a plusieurs dans le meme espace ?",
+    question: "Est-ce seulement un outil de gestion de biens ?",
     answer:
-      "Oui. Lok Izy introduit un espace organisation owner avec gestion des admins, des quotas et d'un portefeuille partage par equipe.",
+      "Non. Lok Izy couvre aussi les candidats, les baux, les loyers, les documents, les incidents, les notifications et la lecture opérationnelle du quotidien.",
   },
   {
-    question: "Que devient la signature des documents ?",
+    question: "Qu'est-ce qui fait vraiment gagner du temps ?",
     answer:
-      "Les baux, inventaires et etats des lieux suivent un parcours de signature plus direct, avec preview, statuts et centralisation dans le dossier.",
+      "La centralisation des flux, l'automatisation des loyers, la génération des quittances, le respect de PaymentDay et l'historique d'activité évitent les ressaisies et les oublis.",
   },
   {
-    question: "Y a-t-il un suivi des alertes et des actions ?",
+    question: "Les locataires ont-ils aussi leur espace ?",
     answer:
-      "Oui. Notifications, rappels, evenements importants et journal d'activite permettent de suivre les priorites et les actions recentes du portefeuille.",
+      "Oui. Ils peuvent consulter leurs paiements, leurs quittances, leurs documents, ouvrir des incidents et suivre les échanges depuis une interface simple.",
   },
 ];
 
@@ -30,7 +30,7 @@ export default function FAQ() {
             FAQ
           </p>
           <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
-            Les questions qui reviennent avec la nouvelle version.
+            Les réponses aux questions qui comptent avant de choisir un outil.
           </h2>
         </div>
 

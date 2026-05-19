@@ -2,7 +2,7 @@ import { BellRing, Building2, Megaphone } from "lucide-react";
 
 const highlights = [
   {
-    title: "Organisation owner et equipe",
+    title: "Organisation owner et équipe",
     text: "Pilotez votre structure, vos admins, vos quotas et votre portefeuille depuis un espace unique.",
     icon: Building2,
   },
@@ -12,8 +12,8 @@ const highlights = [
     icon: Megaphone,
   },
   {
-    title: "Alertes, signatures et activite",
-    text: "Suivez les notifications, les documents a signer et l'historique des actions importantes sans perdre le contexte.",
+    title: "Alertes, signatures et activité",
+    text: "Suivez les notifications, les documents à signer et l'historique des actions importantes sans perdre le contexte.",
     icon: BellRing,
   },
 ];
@@ -24,15 +24,15 @@ export default function Highlights() {
       <div className="section-container">
         <div className="mb-14 max-w-3xl">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0f6f34]">
-            Nouveautes produit
+            Nouveautés produit
           </p>
           <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
             Le site parle maintenant de la vraie version de Lok Izy.
           </h2>
           <p className="text-lg leading-8 text-[#66736d]">
-            La plateforme ne se limite plus a la gestion des biens et des
+            La plateforme ne se limite plus à la gestion des biens et des
             documents. Elle couvre aussi l'organisation, le recrutement
-            locataire, le suivi operationnel et les alertes du quotidien.
+            locataire, le suivi opérationnel et les alertes du quotidien.
           </p>
         </div>
 

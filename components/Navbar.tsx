@@ -10,8 +10,8 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   const links = [
-    { label: "Fonctionnalites", href: "/#fonctionnalites" },
-    { label: "Workflow", href: "/#workflow" },
+    { label: "Pourquoi Lok Izy", href: "/#fonctionnalites" },
+    { label: "Comment ça marche", href: "/#workflow" },
     { label: "FAQ", href: "/#faq" },
   ];
 
