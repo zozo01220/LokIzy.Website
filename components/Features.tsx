@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type FeatureCard = {
   kpi: string;
   title: string;
@@ -139,19 +141,37 @@ export default function Features() {
   return (
     <section id="fonctionnalites" className="bg-white py-28">
       <div className="section-container">
-        <div className="mb-16 max-w-4xl">
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#4f6455]">
-            Pourquoi Lok Izy
-          </p>
-          <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
-            Une plateforme conçue pour faire gagner du temps, clarifier les décisions et professionnaliser la gestion locative.
-          </h2>
+        <div className="mb-16 grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div className="max-w-4xl">
+            <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#4f6455]">
+              Pourquoi Lok Izy
+            </p>
+            <h2 className="mb-6 text-4xl font-bold text-[#101513] sm:text-5xl">
+              Une plateforme conçue pour faire gagner du temps, clarifier les
+              décisions et professionnaliser la gestion locative.
+            </h2>
 
-          <p className="text-lg leading-8 text-[#66736d]">
-            Là où beaucoup d'outils empilent des écrans, Lok Izy relie enfin
-            les opérations du quotidien dans une expérience claire, exploitable
-            et pensée pour la vraie vie.
-          </p>
+            <p className="text-lg leading-8 text-[#66736d]">
+              Là où beaucoup d'outils empilent des écrans, Lok Izy relie enfin
+              les opérations du quotidien dans une expérience claire,
+              exploitable et pensée pour la vraie vie.
+            </p>
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-x-[16%] top-[12%] h-[72%] rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(16,21,19,0.14),rgba(16,21,19,0.04)_58%,transparent_78%)] blur-3xl" />
+            <div className="relative rounded-[36px] bg-transparent p-0 shadow-none">
+              <div className="relative aspect-[16/10]">
+                <Image
+                  src="/hero-dashboard-devices.png"
+                  alt="Lok Izy sur laptop, tablette et smartphone"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 720px"
+                  className="object-contain drop-shadow-[0_30px_70px_rgba(16,21,19,0.18)]"
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="grid gap-10">
