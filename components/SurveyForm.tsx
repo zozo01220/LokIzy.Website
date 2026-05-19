@@ -212,7 +212,14 @@ export default function SurveyForm() {
 
             <TextareaField
               id="surveyPain"
-              label="1. Je développe une plateforme de gestion locative pour petits propriétaires. Quelle est votre plus grosse galère aujourd'hui ?"
+              label={
+                <>
+                  Je développe une plateforme de gestion locative pour petits propriétaires.
+                  <br />
+                  <br />
+                  1. Quelle est votre plus grosse galère aujourd'hui ?
+                </>
+              }
               value={values.surveyPain}
               onChange={(value) => updateField("surveyPain", value)}
               placeholder="Décrivez la difficulté principale que vous rencontrez aujourd'hui."
@@ -333,7 +340,7 @@ export default function SurveyForm() {
 
 type BaseFieldProps = {
   id: string;
-  label: string;
+  label: React.ReactNode;
   value: string;
   onChange: (value: string) => void;
   error?: string;
