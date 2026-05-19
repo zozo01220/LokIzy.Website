@@ -23,7 +23,7 @@ Accept: application/json
 Nom possible complet si heberge sur l'app :
 
 ```txt
-https://locativeapp.azurewebsites.net/api/public/register-free
+http://vps-1da1a09d.vps.ovh.net:5000/api/public/register-free
 ```
 
 ## Requete JSON
@@ -123,7 +123,7 @@ Body conseille :
   "organizationName": "Horizon Gestion",
   "plan": "Free",
   "ownerEmail": "laura@horizon.ch",
-  "loginUrl": "https://locativeapp.azurewebsites.net/Account/Login"
+  "loginUrl": "http://vps-1da1a09d.vps.ovh.net:5000/Account/Login"
 }
 ```
 
@@ -191,9 +191,9 @@ Le site :
 Variables d'environnement cote site :
 
 ```env
-NEXT_PUBLIC_APP_URL=https://locativeapp.azurewebsites.net
+NEXT_PUBLIC_APP_URL=http://vps-1da1a09d.vps.ovh.net:5000
 NEXT_PUBLIC_REGISTRATION_MODE=live
-NEXT_PUBLIC_REGISTRATION_ENDPOINT=https://locativeapp.azurewebsites.net/api/public/register-free
+NEXT_PUBLIC_REGISTRATION_ENDPOINT=http://vps-1da1a09d.vps.ovh.net:5000/api/public/register-free
 ```
 
 ## Proposition de DTO backend public

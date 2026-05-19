@@ -19,7 +19,7 @@ Accept: application/json
 Nom possible complet si heberge sur l'app :
 
 ```txt
-https://locativeapp.azurewebsites.net/api/public/product-survey
+http://vps-1da1a09d.vps.ovh.net:5000/api/public/product-survey
 ```
 
 ## Requete JSON
@@ -166,9 +166,9 @@ Le site :
 Variables d'environnement cote site :
 
 ```env
-NEXT_PUBLIC_APP_URL=https://locativeapp.azurewebsites.net
+NEXT_PUBLIC_APP_URL=http://vps-1da1a09d.vps.ovh.net:5000
 NEXT_PUBLIC_SURVEY_MODE=live
-NEXT_PUBLIC_SURVEY_ENDPOINT=https://locativeapp.azurewebsites.net/api/public/product-survey
+NEXT_PUBLIC_SURVEY_ENDPOINT=http://vps-1da1a09d.vps.ovh.net:5000/api/public/product-survey
 ```
 
 ## Recommendation securite
