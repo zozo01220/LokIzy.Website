@@ -29,7 +29,7 @@ export const REGISTRATION_MODE =
 export const SURVEY_ENDPOINT =
   envSurveyEndpoint && envSurveyEndpoint.length > 0
     ? envSurveyEndpoint
-    : `${APP_URL}/api/public/product-survey`;
+    : `/api/public/product-survey`;
 
 export const SURVEY_MODE =
   envSurveyMode === "pending"
