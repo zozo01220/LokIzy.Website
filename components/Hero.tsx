@@ -32,12 +32,12 @@ export default function Hero() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage:
-            "linear-gradient(90deg, rgba(6,10,8,0.88) 0%, rgba(10,15,12,0.80) 34%, rgba(16,22,18,0.66) 62%, rgba(22,29,24,0.56) 100%), url('/hero-login-bg.png')",
+            "linear-gradient(90deg, rgba(6,10,8,0.78) 0%, rgba(10,15,12,0.68) 34%, rgba(16,22,18,0.54) 62%, rgba(22,29,24,0.46) 100%), url('/hero-login-bg.png')",
         }}
       />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(127,190,141,0.18),transparent_28%),radial-gradient(circle_at_74%_18%,rgba(255,255,255,0.08),transparent_18%),linear-gradient(180deg,rgba(6,10,8,0.22),rgba(7,11,9,0.42)_58%,rgba(7,11,9,0.68)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(127,190,141,0.18),transparent_28%),radial-gradient(circle_at_74%_18%,rgba(255,255,255,0.10),transparent_18%),linear-gradient(180deg,rgba(6,10,8,0.16),rgba(7,11,9,0.32)_58%,rgba(7,11,9,0.54)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:82px_82px]" />
-      <div className="absolute inset-y-0 left-0 w-[52%] bg-[linear-gradient(90deg,rgba(5,8,6,0.72),rgba(5,8,6,0.16)_76%,transparent)]" />
+      <div className="absolute inset-y-0 left-0 w-[52%] bg-[linear-gradient(90deg,rgba(5,8,6,0.60),rgba(5,8,6,0.10)_76%,transparent)]" />
 
       <div className="section-container relative py-8">
         <div className="flex justify-center">
