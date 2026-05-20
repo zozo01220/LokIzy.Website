@@ -7,9 +7,7 @@ import { SURVEY_ENDPOINT, SURVEY_MODE } from "@/lib/app-config";
 const CANCEL_URL = "https://lokizy-web.vercel.app/";
 
 type SurveyFormValues = {
-  fullName: string;
   email: string;
-  profile: string;
   surveyPain: string;
   surveyFeature: string;
   surveyPrice: string;
@@ -21,13 +19,11 @@ type SurveyErrors = Partial<Record<keyof SurveyFormValues, string>>;
 type SubmissionState =
   | { type: "idle" }
   | { type: "preview"; payload: Record<string, unknown> }
-  | { type: "success"; message: string }
+  | { type: "success"; notifyOnLaunch: boolean }
   | { type: "error"; message: string };
 
 const initialValues: SurveyFormValues = {
-  fullName: "",
   email: "",
-  profile: "",
   surveyPain: "",
   surveyFeature: "",
   surveyPrice: "",
@@ -55,18 +51,12 @@ export default function SurveyForm() {
   function validateForm(input: SurveyFormValues) {
     const nextErrors: SurveyErrors = {};
 
-    if (!input.fullName.trim()) {
-      nextErrors.fullName = "Le nom complet est requis.";
-    }
-
-    if (!input.email.trim()) {
-      nextErrors.email = "L'email est requis.";
-    } else if (!emailPattern.test(input.email.trim())) {
-      nextErrors.email = "Entrez une adresse email valide.";
-    }
-
-    if (!input.profile.trim()) {
-      nextErrors.profile = "Le profil est requis.";
+    if (input.notifyOnLaunch) {
+      if (!input.email.trim()) {
+        nextErrors.email = "L'email est requis.";
+      } else if (!emailPattern.test(input.email.trim())) {
+        nextErrors.email = "Entrez une adresse email valide.";
+      }
     }
 
     return nextErrors;
@@ -74,9 +64,9 @@ export default function SurveyForm() {
 
   function buildPayload(input: SurveyFormValues) {
     return {
-      fullName: input.fullName.trim(),
-      email: input.email.trim(),
-      profile: input.profile.trim(),
+      ...(input.notifyOnLaunch
+        ? { email: input.email.trim() || null }
+        : {}),
       surveyPain: input.surveyPain.trim() || null,
       surveyFeature: input.surveyFeature.trim() || null,
       surveyPrice: input.surveyPrice.trim() || null,
@@ -84,6 +74,10 @@ export default function SurveyForm() {
       source: "website_survey_form",
       createdAtPreview: new Date().toISOString(),
     };
+  }
+
+  function closeModal() {
+    setSubmissionState({ type: "idle" });
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -126,9 +120,7 @@ export default function SurveyForm() {
 
       setSubmissionState({
         type: "success",
-        message:
-          extractSuccessMessage(responseBody) ||
-          "Sondage enregistré avec succès.",
+        notifyOnLaunch: values.notifyOnLaunch,
       });
       setValues(initialValues);
     } catch (error) {
@@ -163,53 +155,6 @@ export default function SurveyForm() {
 
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
           <div className="grid gap-5 sm:grid-cols-2">
-            <FormField
-              id="fullName"
-              label="Nom complet"
-              required
-              value={values.fullName}
-              error={errors.fullName}
-              onChange={(value) => updateField("fullName", value)}
-              placeholder="Prénom Nom"
-            />
-            <FormField
-              id="email"
-              label="Email"
-              required
-              type="email"
-              value={values.email}
-              error={errors.email}
-              onChange={(value) => updateField("email", value)}
-              placeholder="nom@entreprise.com"
-            />
-
-            <div className="space-y-2">
-              <FieldLabel htmlFor="profile" required>
-                Profil
-              </FieldLabel>
-              <select
-                id="profile"
-                value={values.profile}
-                onChange={(event) => updateField("profile", event.target.value)}
-                className={`h-14 w-full rounded-2xl border bg-white px-4 text-[#101513] outline-none transition focus:ring-4 ${
-                  errors.profile
-                    ? "border-[#f04438] focus:border-[#f04438] focus:ring-[#f04438]/10"
-                    : "border-[#d9e5de] focus:border-[var(--sage-accent)] focus:ring-[var(--sage-accent)]/10"
-                }`}
-              >
-                <option value="">Sélectionner un profil</option>
-                <option value="proprietaire">Propriétaire / admin</option>
-                <option value="locataire">Locataire</option>
-                <option value="partenaire">Partenaire</option>
-                <option value="autre">Autre</option>
-              </select>
-              {errors.profile ? (
-                <p className="text-sm font-medium text-[#b42318]">
-                  {errors.profile}
-                </p>
-              ) : null}
-            </div>
-
             <TextareaField
               id="surveyPain"
               label={
@@ -277,6 +222,21 @@ export default function SurveyForm() {
                 </div>
               </div>
             </div>
+
+            {values.notifyOnLaunch ? (
+              <div className="sm:col-span-2">
+                <FormField
+                  id="email"
+                  label="Email"
+                  required
+                  type="email"
+                  value={values.email}
+                  error={errors.email}
+                  onChange={(value) => updateField("email", value)}
+                  placeholder="nom@entreprise.com"
+                />
+              </div>
+            ) : null}
           </div>
 
           <div className="flex flex-col gap-4 sm:flex-row">
@@ -310,29 +270,95 @@ export default function SurveyForm() {
               </pre>
             </article>
           ) : null}
-
-          {submissionState.type === "success" ? (
-            <article className="rounded-3xl border border-[#6f8674]/20 bg-[#edf1ee] p-6 text-[#4f6455]">
-              <p className="text-sm font-bold uppercase tracking-[0.18em]">
-                Sondage enregistré
-              </p>
-              <p className="mt-3 text-base leading-7">
-                {submissionState.message}
-              </p>
-            </article>
-          ) : null}
-
-          {submissionState.type === "error" ? (
-            <article className="rounded-3xl border border-[#f04438]/20 bg-[#fef3f2] p-6 text-[#b42318]">
-              <p className="text-sm font-bold uppercase tracking-[0.18em]">
-                Erreur d&apos;enregistrement
-              </p>
-              <p className="mt-3 text-base leading-7">
-                {submissionState.message}
-              </p>
-            </article>
-          ) : null}
         </form>
+
+        {submissionState.type === "success" ? (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+            <div className="w-full max-w-xl rounded-[2rem] bg-white p-8 shadow-2xl ring-1 ring-black/10">
+              <div className="flex items-center justify-center rounded-full bg-emerald-100 p-4">
+                <svg
+                  className="h-10 w-10 text-emerald-600"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M20 6L9 17L4 12"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <h2 className="mt-6 text-3xl font-semibold text-[#101513]">
+                C'est bon !
+              </h2>
+              <p className="mt-4 text-base leading-7 text-[#445144]">
+                {submissionState.notifyOnLaunch
+                  ? "Votre demande est bien enregistrée. Nous vous informerons dès que Lok Izy sera disponible."
+                  : "Merci, votre réponse anonyme a bien été enregistrée."}
+              </p>
+              <div className="mt-8 flex justify-end">
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="inline-flex h-14 items-center justify-center rounded-full bg-[#101513] px-7 text-base font-semibold text-white transition hover:bg-[#333]"
+                >
+                  Fermer
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {submissionState.type === "error" ? (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+            <div className="w-full max-w-xl rounded-[2rem] bg-white p-8 shadow-2xl ring-1 ring-black/10">
+              <div className="flex items-center justify-center rounded-full bg-[#fef3f2] p-4">
+                <svg
+                  className="h-10 w-10 text-[#b42318]"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 8.5V12"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M12 15.5H12.01"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12Z"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  />
+                </svg>
+              </div>
+              <h2 className="mt-6 text-3xl font-semibold text-[#101513]">
+                Erreur
+              </h2>
+              <p className="mt-4 text-base leading-7 text-[#445144]">
+                {submissionState.message}
+              </p>
+              <div className="mt-8 flex justify-end">
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="inline-flex h-14 items-center justify-center rounded-full bg-[#101513] px-7 text-base font-semibold text-white transition hover:bg-[#333]"
+                >
+                  Fermer
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );
