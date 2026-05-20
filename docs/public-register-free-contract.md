@@ -23,7 +23,7 @@ Accept: application/json
 Nom possible complet si heberge sur l'app :
 
 ```txt
-http://localhost:5000/api/public/register-free
+https://app.lok-izy.fr/api/public/register-free
 ```
 
 ## Requete JSON
@@ -123,7 +123,7 @@ Body conseille :
   "organizationName": "Horizon Gestion",
   "plan": "Free",
   "ownerEmail": "laura@horizon.ch",
-  "loginUrl": "http://localhost:5000/Account/Login"
+  "loginUrl": "https://app.lok-izy.fr/Account/Login"
 }
 ```
 
@@ -193,7 +193,7 @@ Variables d'environnement cote site :
 ```env
 NEXT_PUBLIC_APP_URL=http://vps-1da1a09d.vps.ovh.net:5000
 NEXT_PUBLIC_REGISTRATION_MODE=live
-NEXT_PUBLIC_REGISTRATION_ENDPOINT=http://localhost:5000/api/public/register-free
+NEXT_PUBLIC_REGISTRATION_ENDPOINT=https://app.lok-izy.fr/api/public/register-free
 ```
 
 ## Proposition de DTO backend public

@@ -19,7 +19,7 @@ Accept: application/json
 Nom possible complet si heberge sur l'app :
 
 ```txt
-http://localhost:5000/api/public/product-survey
+https://app.lok-izy.fr/api/public/product-survey
 ```
 
 ## Requete JSON
@@ -164,7 +164,7 @@ Variables d'environnement cote site :
 ```env
 NEXT_PUBLIC_APP_URL=http://vps-1da1a09d.vps.ovh.net:5000
 NEXT_PUBLIC_SURVEY_MODE=live
-NEXT_PUBLIC_SURVEY_ENDPOINT=http://localhost:5000/api/public/product-survey
+NEXT_PUBLIC_SURVEY_ENDPOINT=https://app.lok-izy.fr/api/public/product-survey
 ```
 
 ## Recommendation securite
