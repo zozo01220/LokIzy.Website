@@ -7,6 +7,8 @@ import { SURVEY_ENDPOINT, SURVEY_MODE } from "@/lib/app-config";
 const CANCEL_URL = "https://lokizy-web.vercel.app/";
 
 type SurveyFormValues = {
+  fullName: string;
+  profile: string;
   email: string;
   surveyPain: string;
   surveyFeature: string;
@@ -23,6 +25,8 @@ type SubmissionState =
   | { type: "error"; message: string };
 
 const initialValues: SurveyFormValues = {
+  fullName: "",
+  profile: "",
   email: "",
   surveyPain: "",
   surveyFeature: "",
@@ -51,12 +55,18 @@ export default function SurveyForm() {
   function validateForm(input: SurveyFormValues) {
     const nextErrors: SurveyErrors = {};
 
-    if (input.notifyOnLaunch) {
-      if (!input.email.trim()) {
-        nextErrors.email = "L'email est requis.";
-      } else if (!emailPattern.test(input.email.trim())) {
-        nextErrors.email = "Entrez une adresse email valide.";
-      }
+    if (!input.fullName.trim()) {
+      nextErrors.fullName = "Le nom complet est requis.";
+    }
+
+    if (!input.profile.trim()) {
+      nextErrors.profile = "Le profil est requis.";
+    }
+
+    if (!input.email.trim()) {
+      nextErrors.email = "L'email est requis.";
+    } else if (!emailPattern.test(input.email.trim())) {
+      nextErrors.email = "Entrez une adresse email valide.";
     }
 
     return nextErrors;
@@ -64,7 +74,9 @@ export default function SurveyForm() {
 
   function buildPayload(input: SurveyFormValues) {
     return {
-      ...(input.notifyOnLaunch ? { email: input.email.trim() } : {}),
+      fullName: input.fullName.trim(),
+      profile: input.profile.trim(),
+      email: input.email.trim(),
       surveyPain: input.surveyPain.trim(),
       surveyFeature: input.surveyFeature.trim(),
       surveyPrice: input.surveyPrice.trim(),
@@ -186,6 +198,30 @@ export default function SurveyForm() {
             />
 
             <div className="sm:col-span-2">
+              <FormField
+                id="fullName"
+                label="Nom complet"
+                required
+                value={values.fullName}
+                error={errors.fullName}
+                onChange={(value) => updateField("fullName", value)}
+                placeholder="Prénom Nom"
+              />
+            </div>
+
+            <div className="sm:col-span-2">
+              <FormField
+                id="profile"
+                label="Profil"
+                required
+                value={values.profile}
+                error={errors.profile}
+                onChange={(value) => updateField("profile", value)}
+                placeholder="Propriétaire, gestionnaire, admin..."
+              />
+            </div>
+
+            <div className="sm:col-span-2">
               <div className="flex items-center gap-4 rounded-3xl border border-[#d9e5de] bg-white px-5 py-4">
                 <button
                   type="button"
@@ -221,20 +257,18 @@ export default function SurveyForm() {
               </div>
             </div>
 
-            {values.notifyOnLaunch ? (
-              <div className="sm:col-span-2">
-                <FormField
-                  id="email"
-                  label="Email"
-                  required
-                  type="email"
-                  value={values.email}
-                  error={errors.email}
-                  onChange={(value) => updateField("email", value)}
-                  placeholder="nom@entreprise.com"
-                />
-              </div>
-            ) : null}
+            <div className="sm:col-span-2">
+              <FormField
+                id="email"
+                label="Email"
+                required
+                type="email"
+                value={values.email}
+                error={errors.email}
+                onChange={(value) => updateField("email", value)}
+                placeholder="nom@entreprise.com"
+              />
+            </div>
           </div>
 
           <div className="flex flex-col gap-4 sm:flex-row">
