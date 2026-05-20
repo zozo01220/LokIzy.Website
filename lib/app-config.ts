@@ -9,7 +9,7 @@ const envSurveyMode = process.env.NEXT_PUBLIC_SURVEY_MODE?.trim().toLowerCase();
 export const APP_URL =
   envAppUrl && envAppUrl.length > 0
     ? envAppUrl.replace(/\/$/, "")
-    : "http://vps-1da1a09d.vps.ovh.net:5000";
+    : "https://app.lok-izy.fr";
 
 export const LOGIN_URL = `${APP_URL}/Account/Login`;
 export const SURVEY_PATH = "/survey";

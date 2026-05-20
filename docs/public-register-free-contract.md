@@ -191,7 +191,7 @@ Le site :
 Variables d'environnement cote site :
 
 ```env
-NEXT_PUBLIC_APP_URL=http://vps-1da1a09d.vps.ovh.net:5000
+NEXT_PUBLIC_APP_URL=https://app.lok-izy.fr
 NEXT_PUBLIC_REGISTRATION_MODE=live
 NEXT_PUBLIC_REGISTRATION_ENDPOINT=https://app.lok-izy.fr/api/public/register-free
 ```
