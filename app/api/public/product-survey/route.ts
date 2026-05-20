@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 const BACKEND =
   process.env.NEXT_PUBLIC_SURVEY_ENDPOINT ||
-  "http://vps-1da1a09d.vps.ovh.net:5000/api/public/product-survey";
+  "http://localhost:5000/api/public/product-survey";
 
 export async function POST(request: Request) {
   const body = await request.text();

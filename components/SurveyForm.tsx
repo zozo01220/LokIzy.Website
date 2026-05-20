@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { SURVEY_ENDPOINT, SURVEY_MODE } from "@/lib/app-config";
 
-const CANCEL_URL = "https://lokizy-web.vercel.app/";
+const CANCEL_URL = "http://localhost:3000/";
 
 type SurveyFormValues = {
   email: string;
