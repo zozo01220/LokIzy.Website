@@ -28,9 +28,7 @@ Le frontend du site est deja prepare pour envoyer ce payload en `camelCase`.
 
 ```json
 {
-  "fullName": "Laura Prieur",
   "email": "laura@horizon.ch",
-  "profile": "proprietaire",
   "surveyPain": "Le suivi des loyers et des incidents me prend trop de temps.",
   "surveyFeature": "Un dashboard clair avec relances automatiques.",
   "surveyPrice": "29 EUR/mois",
@@ -45,9 +43,9 @@ Le frontend du site est deja prepare pour envoyer ce payload en `camelCase`.
 ```csharp
 public sealed class PublicProductSurveyRequest
 {
-    public string FullName { get; set; } = "";
-    public string Email { get; set; } = "";
-    public string Profile { get; set; } = "";
+    public string? FullName { get; set; }
+    public string? Email { get; set; }
+    public string? Profile { get; set; }
     public string? SurveyPain { get; set; }
     public string? SurveyFeature { get; set; }
     public string? SurveyPrice { get; set; }
@@ -63,9 +61,9 @@ public sealed class PublicProductSurveyRequest
 public sealed class ProductSurveyResponse
 {
     public Guid Id { get; set; }
-    public string FullName { get; set; } = "";
-    public string Email { get; set; } = "";
-    public string Profile { get; set; } = "";
+    public string? FullName { get; set; }
+    public string? Email { get; set; }
+    public string? Profile { get; set; }
     public string? SurveyPain { get; set; }
     public string? SurveyFeature { get; set; }
     public string? SurveyPrice { get; set; }
@@ -79,16 +77,15 @@ public sealed class ProductSurveyResponse
 
 Minimum a valider avant ecriture :
 
-- `fullName` requis
-- `email` requis et valide
-- `profile` requis
 - `notifyOnLaunch` requis
+- `email` requis et valide uniquement si `notifyOnLaunch = true`
 
 Validation metier utile :
 
-- normaliser `email`
+- normaliser `email` si renseigne
 - journaliser `source` si present
 - ignorer `createdAtPreview` si la date serveur fait foi
+- accepter `fullName`, `email` et `profile` absents ou vides
 - accepter `surveyPain`, `surveyFeature` et `surveyPrice` vides
 
 ## Reponse succes recommandee
@@ -124,7 +121,6 @@ Notes :
 {
   "message": "Certains champs sont invalides.",
   "errors": [
-    "Le nom complet est requis.",
     "L'email est invalide."
   ]
 }

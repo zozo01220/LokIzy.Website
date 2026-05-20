@@ -7,8 +7,6 @@ import { SURVEY_ENDPOINT, SURVEY_MODE } from "@/lib/app-config";
 const CANCEL_URL = "https://lokizy-web.vercel.app/";
 
 type SurveyFormValues = {
-  fullName: string;
-  profile: string;
   email: string;
   surveyPain: string;
   surveyFeature: string;
@@ -25,8 +23,6 @@ type SubmissionState =
   | { type: "error"; message: string };
 
 const initialValues: SurveyFormValues = {
-  fullName: "",
-  profile: "",
   email: "",
   surveyPain: "",
   surveyFeature: "",
@@ -55,17 +51,12 @@ export default function SurveyForm() {
   function validateForm(input: SurveyFormValues) {
     const nextErrors: SurveyErrors = {};
 
-    if (!input.fullName.trim()) {
-      nextErrors.fullName = "Le nom complet est requis.";
-    }
-
-    if (!input.profile.trim()) {
-      nextErrors.profile = "Le profil est requis.";
-    }
-
-    if (!input.email.trim()) {
+    if (input.notifyOnLaunch && !input.email.trim()) {
       nextErrors.email = "L'email est requis.";
-    } else if (!emailPattern.test(input.email.trim())) {
+    } else if (
+      input.notifyOnLaunch &&
+      !emailPattern.test(input.email.trim())
+    ) {
       nextErrors.email = "Entrez une adresse email valide.";
     }
 
@@ -74,9 +65,7 @@ export default function SurveyForm() {
 
   function buildPayload(input: SurveyFormValues) {
     return {
-      fullName: input.fullName.trim(),
-      profile: input.profile.trim(),
-      email: input.email.trim(),
+      email: input.notifyOnLaunch ? input.email.trim() : null,
       surveyPain: input.surveyPain.trim(),
       surveyFeature: input.surveyFeature.trim(),
       surveyPrice: input.surveyPrice.trim(),
@@ -158,8 +147,8 @@ export default function SurveyForm() {
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-[#66736d]">
             Le produit n&apos;est pas encore en phase de vente publique. Ce
-            formulaire nous aide à mieux comprendre les besoins prioritaires et à
-            préparer le futur branchement de la collecte.
+            formulaire nous aide a mieux comprendre les besoins prioritaires et
+            a preparer le futur branchement de la collecte.
           </p>
         </div>
 
@@ -169,20 +158,21 @@ export default function SurveyForm() {
               id="surveyPain"
               label={
                 <>
-                  Je développe une plateforme de gestion locative pour petits propriétaires.
+                  Je developpe une plateforme de gestion locative pour petits
+                  proprietaires.
                   <br />
                   <br />
-                  1. Quelle est votre plus grosse galère aujourd'hui ?
+                  1. Quelle est votre plus grosse galere aujourd&apos;hui ?
                 </>
               }
               value={values.surveyPain}
               onChange={(value) => updateField("surveyPain", value)}
-              placeholder="Décrivez la difficulté principale que vous rencontrez aujourd'hui."
+              placeholder="Decrivez la difficulte principale que vous rencontrez aujourd'hui."
               className="sm:col-span-2"
             />
             <TextareaField
               id="surveyFeature"
-              label="2. Quelle fonctionnalité vous ferait gagner le plus de temps ?"
+              label="2. Quelle fonctionnalite vous ferait gagner le plus de temps ?"
               value={values.surveyFeature}
               onChange={(value) => updateField("surveyFeature", value)}
               placeholder="Exemple : relances automatiques, suivi des incidents, quittances, dashboard..."
@@ -190,36 +180,12 @@ export default function SurveyForm() {
             />
             <TextareaField
               id="surveyPrice"
-              label="3. Si un logiciel vous faisait gagner 5h/mois, combien seriez-vous prêt à payer ?"
+              label="3. Si un logiciel vous faisait gagner 5h/mois, combien seriez-vous pret a payer ?"
               value={values.surveyPrice}
               onChange={(value) => updateField("surveyPrice", value)}
               placeholder="Exemple : 5 EUR/mois, 10 EUR/mois, 15 EUR/mois..."
               className="sm:col-span-2"
             />
-
-            <div className="sm:col-span-2">
-              <FormField
-                id="fullName"
-                label="Nom complet"
-                required
-                value={values.fullName}
-                error={errors.fullName}
-                onChange={(value) => updateField("fullName", value)}
-                placeholder="Prénom Nom"
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <FormField
-                id="profile"
-                label="Profil"
-                required
-                value={values.profile}
-                error={errors.profile}
-                onChange={(value) => updateField("profile", value)}
-                placeholder="Propriétaire, gestionnaire, admin..."
-              />
-            </div>
 
             <div className="sm:col-span-2">
               <div className="flex items-center gap-4 rounded-3xl border border-[#d9e5de] bg-white px-5 py-4">
@@ -247,28 +213,30 @@ export default function SurveyForm() {
 
                 <div>
                   <p className="text-sm font-semibold text-[#101513]">
-                    Être informé de la sortie du produit
+                    Etre informe de la sortie du produit
                   </p>
                   <p className="mt-1 text-sm text-[#66736d]">
-                    Activé pour recevoir l&apos;information quand Lok Izy sera
+                    Active pour recevoir l&apos;information quand Lok Izy sera
                     disponible.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="sm:col-span-2">
-              <FormField
-                id="email"
-                label="Email"
-                required
-                type="email"
-                value={values.email}
-                error={errors.email}
-                onChange={(value) => updateField("email", value)}
-                placeholder="nom@entreprise.com"
-              />
-            </div>
+            {values.notifyOnLaunch ? (
+              <div className="sm:col-span-2">
+                <FormField
+                  id="email"
+                  label="Email"
+                  required
+                  type="email"
+                  value={values.email}
+                  error={errors.email}
+                  onChange={(value) => updateField("email", value)}
+                  placeholder="nom@entreprise.com"
+                />
+              </div>
+            ) : null}
           </div>
 
           <div className="flex flex-col gap-4 sm:flex-row">
@@ -293,8 +261,8 @@ export default function SurveyForm() {
                 Preview du futur payload
               </p>
               <p className="mb-4 text-sm leading-6 text-[#66736d]">
-                Cette donnée n&apos;est pas encore envoyée. Elle montre
-                simplement ce qui pourra être stocké ou transmis quand nous
+                Cette donnee n&apos;est pas encore envoyee. Elle montre
+                simplement ce qui pourra etre stocke ou transmis quand nous
                 brancherons la DB.
               </p>
               <pre className="overflow-x-auto rounded-2xl bg-[#101513] p-5 text-sm leading-6 text-[#e8f7ee]">
@@ -324,12 +292,12 @@ export default function SurveyForm() {
                 </svg>
               </div>
               <h2 className="mt-6 text-3xl font-semibold text-[#101513]">
-                C'est bon !
+                C&apos;est bon !
               </h2>
               <p className="mt-4 text-base leading-7 text-[#445144]">
                 {submissionState.notifyOnLaunch
-                  ? "Votre demande est bien enregistrée. Nous vous informerons dès que Lok Izy sera disponible."
-                  : "Merci, votre réponse anonyme a bien été enregistrée."}
+                  ? "Votre demande est bien enregistree. Nous vous informerons des que Lok Izy sera disponible."
+                  : "Merci, votre reponse anonyme a bien ete enregistree."}
               </p>
               <div className="mt-8 flex justify-end">
                 <button
@@ -521,15 +489,4 @@ function extractErrorMessage(body: unknown) {
   }
 
   return "Impossible d'enregistrer le sondage pour le moment.";
-}
-
-function extractSuccessMessage(body: unknown) {
-  if (body && typeof body === "object") {
-    const candidate = body as Record<string, unknown>;
-    if (typeof candidate.message === "string" && candidate.message.trim()) {
-      return candidate.message;
-    }
-  }
-
-  return "";
 }
