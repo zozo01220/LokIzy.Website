@@ -64,12 +64,10 @@ export default function SurveyForm() {
 
   function buildPayload(input: SurveyFormValues) {
     return {
-      ...(input.notifyOnLaunch
-        ? { email: input.email.trim() || null }
-        : {}),
-      surveyPain: input.surveyPain.trim() || null,
-      surveyFeature: input.surveyFeature.trim() || null,
-      surveyPrice: input.surveyPrice.trim() || null,
+      ...(input.notifyOnLaunch ? { email: input.email.trim() } : {}),
+      surveyPain: input.surveyPain.trim(),
+      surveyFeature: input.surveyFeature.trim(),
+      surveyPrice: input.surveyPrice.trim(),
       notifyOnLaunch: input.notifyOnLaunch,
       source: "website_survey_form",
       createdAtPreview: new Date().toISOString(),
