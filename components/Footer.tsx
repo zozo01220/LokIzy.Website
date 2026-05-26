@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="border-t border-[#e4ebe7] bg-[#f7faf8] py-10">
       <div className="section-container flex flex-col items-center justify-between gap-6 lg:flex-row">
         <Link href="/" className="flex items-center" aria-label="Lok Izy">
-          <Logo />
+          <Logo variant="nav" />
         </Link>
 
         <div className="text-center text-[#66736d] lg:text-right">

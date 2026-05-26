@@ -59,14 +59,14 @@ export default function Navbar() {
       ref={headerRef}
       className="fixed top-0 z-50 w-full border-b border-[#e4ebe7] bg-white/90 backdrop-blur-xl"
     >
-      <div className="section-container flex h-20 items-center justify-between">
+      <div className="section-container flex h-28 items-center justify-between">
         <Link
           href="/"
           onClick={handleLogoClick}
           className="flex items-center"
           aria-label="Lok Izy"
         >
-          <Logo />
+          <Logo variant="nav" />
         </Link>
 
         <nav className="hidden gap-10 lg:flex">
